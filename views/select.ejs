@@ -18,17 +18,21 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col">Matric</th>
 					<th scope="col">Name</th>
-					<th scope="col">Faculty</th>
+					<th scope="col">Phone</th>
+					<th scope="col">Password</th>
+					<th scope="col">Rating</th>
+					<th scope="col">Plate Number</th>
 				</tr>
 			</thead>
 			<tbody>
 				<% for(var i=0; i<data.length; i++) { %>
 				<tr>
-					<td><%= data[i].matric%></td>
-					<td><%= data[i].name%></td>
-					<td><%= data[i].faculty%></td>
+					<td><%= data[i].userName%></td>
+					<td><%= data[i].userPhone%></td>
+					<td><%= data[i].userPassword%></td>
+					<td><%= data[i].rating%></td>
+					<td><%= data[i].plateNumber%></td>
 				</tr>
 				<% } %>
 			</tbody>
@@ -38,17 +42,21 @@
 		&lt;table class="table"&gt;<br />
 		&nbsp; &nbsp; &nbsp;&lt;thead&gt;<br />
 		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;tr&gt;<br />
-		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;th scope="col"&gt;Matric&lt;/th&gt;<br />
 		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;th scope="col"&gt;Name&lt;/th&gt;<br />
-		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;th scope="col"&gt;Faculty&lt;/th&gt;<br />
+		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;th scope="col"&gt;Phone&lt;/th&gt;<br />
+		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;th scope="col"&gt;Password&lt;/th&gt;<br />
+		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;th scope="col"&gt;Rating&lt;/th&gt;<br />
+		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;th scope="col"&gt;Plate Number&lt;/th&gt;<br />
 		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;/tr&gt;<br />
 		&nbsp; &nbsp; &nbsp;&lt;/thead&gt;<br />
 		&nbsp; &nbsp; &nbsp;&lt;tbody&gt;<br />
 		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;% for(var i=0; i&lt;data.length; i++) { %&gt;<br />
 		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;tr&gt;<br />
-		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;td&gt;&lt;%= data[i].matric%&gt;&lt;/td&gt;<br />
-		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;td&gt;&lt;%= data[i].name%&gt;&lt;/td&gt;<br />
-		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;td&gt;&lt;%= data[i].faculty%&gt;&lt;/td&gt;<br />
+		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;td&gt;&lt;%= data[i].userName%&gt;&lt;/td&gt;<br />
+		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;td&gt;&lt;%= data[i].userPhone%&gt;&lt;/td&gt;<br />
+		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;td&gt;&lt;%= data[i].userPassword%&gt;&lt;/td&gt;<br />
+		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;td&gt;&lt;%= data[i].rating%&gt;&lt;/td&gt;<br />
+		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;td&gt;&lt;%= data[i].plateNumber%&gt;&lt;/td&gt;<br />
 		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;/tr&gt;<br />
 		&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&lt;% } %&gt;<br />
 		&nbsp; &nbsp; &nbsp;&lt;/tbody&gt;<br />
