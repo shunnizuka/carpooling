@@ -1,15 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
-//const { Pool } = require('pg')
+const { Pool } = require('pg')
  //--- V7: Using Dot Env ---
-const pool = new Pool({
+/*
+ const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'postgres',
   password: '********',
   port: 5432,
-})
+})*/
 
 const pool = new Pool({
 	connectionString: process.env.DATABASE_URL
@@ -17,7 +18,7 @@ const pool = new Pool({
 
 
 /* SQL Query */
-var sql_query = 'SELECT * FROM student_info';
+var sql_query = 'SELECT * FROM drivers';
 
 router.get('/', function(req, res, next) {
 	pool.query(sql_query, (err, data) => {
