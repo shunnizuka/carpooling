@@ -1,24 +1,24 @@
 function check(event) {
 	// Get Values
-	var matric  = document.getElementById('matric' ).value;
-	var name    = document.getElementById('name'   ).value;
-	var faculty = document.getElementById('faculty').value;
+	var username  = document.getElementById('username' ).value;
+	var phone    = document.getElementById('phone'   ).value;
+	var password = document.getElementById('password').value;
 	
 	// Simple Check
-	if(matric.length != 9) {
-		alert("Invalid matric number");
+	if(username.length > 100) {
+		alert("Invalid username");
 		event.preventDefault();
 		event.stopPropagation();
 		return false;
 	}
-	if(name.length == 0) {
-		alert("Invalid name");
+	if(phone.length != 8) {
+		alert("Invalid phone number");
 		event.preventDefault();
 		event.stopPropagation();
 		return false;
 	}
-	if(faculty.length != 3) {
-		alert("Invalid faculty code");
+	if(password.length > 100) {
+		alert("Invalid password");
 		event.preventDefault();
 		event.stopPropagation();
 		return false;
