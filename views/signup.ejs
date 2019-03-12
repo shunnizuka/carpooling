@@ -18,21 +18,32 @@
   </head>
   <body>
     <h1>CS2102: <%= title%></h1>
-		<form>
+		<form id="login_form" action="signup" role="form" method="POST">
 			<div class="form-group">
-				<label for="username">Username</label>
+				<label for="username">username</label>
 				<input class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter your username">
 				<small id="usernameHelp" class="form-text text-muted">Username must be unique.</small>
             </div>
             <div class="form-group">
-				<label for="phone">Phone</label>
+				<label for="userphone">userphone</label>
 				<input class="form-control" id="phone" placeholder="Enter your phone number">
 			</div>
 			<div class="form-group">
-				<label for="password">Password</label>
+				<label for="userpassword">userpassword</label>
 				<input class="form-control" id="password" placeholder="Enter your password">
 			</div>
-			<button type="signup" class="btn btn-primary" onclick="signup()">Signup</button>
-		</form>
+			<button type="submit" class="btn btn-primary">Signup</button>
+        </form>
+        
+        <script>
+                (function() {
+                    window.addEventListener('load', function() {
+                        var forms = [document.getElementById('login_form')];
+                        var validation = Array.prototype.filter.call(forms, function(form) {
+                            form.addEventListener('submit', check, false);
+                        });
+                    }, false);
+                })();
+            </script>
   </body>
 </html>
