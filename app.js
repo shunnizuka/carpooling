@@ -62,7 +62,6 @@ app.use('/select', selectRouter);
 
 /* --- V5: Adding Forms     --- */
 app.use('/forms', formsRouter);
-app.use('/signup', signupRouter);
 /* ---------------------------- */
 
 /* --- V6: Modify Database  --- */
@@ -70,6 +69,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/insert', insertRouter);
+app.use('/signup', signupRouter);
 /* ---------------------------- */
 
 // catch 404 and forward to error handler
