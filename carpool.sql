@@ -35,7 +35,7 @@ create table Drivers(
 	userName varchar(100) not null,
 	userPhone integer not null,
 	userPassword varchar(100) not null,
-	rating integer default 0,
+	rating integer,
 	plateNumber varchar(100) not null,
 	primary key(userName),
 	foreign key(userName) references Users(userName),
@@ -96,7 +96,6 @@ INSERT INTO Vehicles(plateNumber, carType, carBrand, carColour, carModel)
  VALUES ('SDM4665P', '5 seater', 'Nissan', 'pink', 'Sunny'),
  ('SJK3629Z', '7 seater', 'BMW', 'black', 'aslkdjf');
 
-INSERT INTO Drivers (userName, userPhone, userPassword, plateNumber)
-VALUES ('Leslie Cole', 91234567, 'password', 'SDM4665P' ),
- ('Bava', 92234567, 'password', 'SJK3629Z' );
-
+INSERT INTO Drivers (userName, userPhone, userPassword, plateNumber, rating)
+VALUES ('Leslie Cole', 91234567, 'password', 'SDM4665P', 5 ),
+ ('Bava', 92234567, 'password', 'SJK3629Z', 3 );
