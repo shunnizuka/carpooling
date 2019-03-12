@@ -30,6 +30,7 @@ var formsRouter = require('./routes/forms');
 /* --- V6: Modify Database  --- */
 var insertRouter = require('./routes/insert');
 /* ---------------------------- */
+var signupRouter = require('./routes/signup');
 
 var app = express();
 
@@ -61,6 +62,7 @@ app.use('/select', selectRouter);
 
 /* --- V5: Adding Forms     --- */
 app.use('/forms', formsRouter);
+app.use('/signup', signupRouter);
 /* ---------------------------- */
 
 /* --- V6: Modify Database  --- */

@@ -35,7 +35,7 @@ create table Drivers(
 	userName varchar(100) not null,
 	userPhone integer not null,
 	userPassword varchar(100) not null,
-	rating integer default 0,
+	rating integer,
 	plateNumber varchar(100) not null,
 	primary key(userName),
 	foreign key(userName) references Users(userName),
@@ -99,4 +99,3 @@ INSERT INTO Vehicles(plateNumber, carType, carBrand, carColour, carModel)
 INSERT INTO Drivers (userName, userPhone, userPassword, plateNumber, rating)
 VALUES ('Leslie Cole', 91234567, 'password', 'SDM4665P', 2 ),
  ('B', 92234567, 'password', 'SJK3629Z', 4 );
-

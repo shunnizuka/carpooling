@@ -1,9 +1,15 @@
-function show() {
+function login() {
 	// Get Values
-	var matric  = document.getElementById('matric' ).value;
-	var name    = document.getElementById('name'   ).value;
-	var faculty = document.getElementById('faculty').value;
+	var username  = document.getElementById('username' ).value;
+	var password    = document.getElementById('password').value;
 	
 	// Alert
-	alert("--- Your Input ---\nMatric: " + matric + "\nName: " + name + "\nFaculty: " + faculty);
+	alert("--- Your Input ---\nUsername: " + username + "\nPassword: " + password);
 }
+
+// function signup() {
+// 	router.get('/signup', (req, res) => {
+// 		res.render('signup');
+// 	   });
+// 	res.redirect('/signup');
+// }
