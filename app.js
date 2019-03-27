@@ -61,14 +61,22 @@ app.use('/select', selectRouter);
 /* ---------------------------- */
 
 /* --- V5: Adding Forms     --- */
+<<<<<<< HEAD
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
+=======
+app.use('/forms', formsRouter);
+>>>>>>> 88db7a5bf465c89cf03178f9398ef1d03e3c21f7
 /* ---------------------------- */
 
 /* --- V6: Modify Database  --- */
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+<<<<<<< HEAD
+=======
+app.use('/insert', insertRouter);
+>>>>>>> 88db7a5bf465c89cf03178f9398ef1d03e3c21f7
 app.use('/signup', signupRouter);
 /* ---------------------------- */
 
