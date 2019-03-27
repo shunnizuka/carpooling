@@ -33,8 +33,7 @@ router.post('/', function(req, res, next) {
 	var insert_query = sql_query + "('" + username + "','" + phone + "','" + password + "')";
 	
 	pool.query(insert_query, (err, data) => {
-		res.redirect('/login')
-		console.log(insert_query);
+		res.redirect('/login');
 	});
 });
 
