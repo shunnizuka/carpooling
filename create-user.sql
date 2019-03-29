@@ -1,11 +1,11 @@
 CREATE OR REPLACE FUNCTION create_user
-(u_email TEXT, u_password TEXT, u_name TEXT)
+(userName VARCHAR(20), userPhone INTEGER, userPassword VARCHAR(20))
 RETURNS void
 AS
 $$
 BEGIN
 	INSERT INTO users
-	VALUES(u_email, u_password, u_name);
+	VALUES(userName, userPhone, userPassword);
 END
 $$
 LANGUAGE plpgsql;

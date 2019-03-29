@@ -22,44 +22,43 @@ create table Passengers(
 
 create table Vehicles(
 	plateNumber varchar(8) not null,
+	driverUserName varchar(20),
 	carType varchar(20) not null,
 	carBrand varchar(20) not null,
 	carModel varchar(20) not null,
 	carColour varchar(20) not null,
-	primary key(plateNumber)
+	primary key(plateNumber),
+	foreign key(driverUserName) references Drivers(userName)
 );
 
 create table Drivers(
 	userName varchar(20) not null,
 	rating integer,
-	plateNumber varchar(20) not null,
-	primary key(userName, plateNumber),
-	foreign key(userName) references Users(userName),
-	foreign key(plateNumber) references Vehicles(plateNumber)
+	primary key(userName),
+	foreign key(userName) references Users(userName)
 );
 
 create table Rides(
+	rideId serial,
 	rideDate date not null,
 	rideTime time not null,
 	rideDestination varchar(20) not null,
 	rideOrigin varchar(20) not null,
 	rideCurrentPrice float not null,
 	ridePlateNumber varchar(8) not null,
-	rideDriverName varchar(20) not null,
-	primary key(ridePlateNumber),
+	primary key(rideId),
 	foreign key(ridePlateNumber) references Vehicles(plateNumber),
-	foreign key(rideDriverName) references Drivers(userName),
-	check ((ridetime) >= current_time),
+	check ((rideTime) >= current_time),
 	check ((rideDate) >= current_date)
 );
 
 create table Bids(
 	bidderName varchar(20) not null,
-	bidsPlateNumber varchar(8),
+	rideId integer,
 	price float not null,
-	primary key(bidderName, bidsPlateNumber, price),
+	primary key(bidderName, rideId),
 	foreign key(bidderName) references Passengers(userName),
-	foreign key(bidsPlateNumber) references Rides(ridePlateNumber),
+	foreign key(rideId) references Rides(rideId),
 	check (price > 0)
 );
 
