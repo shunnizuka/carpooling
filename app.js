@@ -35,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 /* --- FOR CARPOOLING    --- */
 app.use('/', homeRouter);
 app.use('/login', loginRouter);
+app.use('/signup', signupRouter);
 /* ---------------------------- */
 
 /* --- FROM TEMPLATE --- */
@@ -43,7 +44,7 @@ app.use('/loops', loopsRouter);
 app.use('/select', selectRouter);
 /* ---------------------------- */
 
-/* --- Modify Database  --- */
+</* --- Modify Database  --- */
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
