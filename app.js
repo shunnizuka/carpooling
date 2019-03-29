@@ -10,8 +10,9 @@ require('dotenv').load();
 /* --- FOR CARPOOLING     --- */
 var homeRouter = require('./routes/home');
 var loginRouter = require('./routes/login');
-var signupPassengerRouter = require('./routes/signupPassenger');
+var signup_passengerRouter = require('./routes/signup_passenger');
 var signup_driverRouter = require('./routes/signup_driver');
+var navbarRouter = require('./routes/navbar');
 /* ---------------------------- */
 
 /* --- FROM TEMPLATE --- */
@@ -33,8 +34,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 /* --- FOR CARPOOLING    --- */
-app.use('/', homeRouter);
+app.use('/home', homeRouter);
 app.use('/login', loginRouter);
+app.use('/navbar', navbarRouter);
 /* ---------------------------- */
 
 /* --- FROM TEMPLATE --- */
@@ -49,7 +51,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /* --- FOR CARPOOLING    --- */
-app.use('/signupPassenger', signupPassengerRouter);
+app.use('/signup_passenger', signup_passengerRouter);
 app.use('/signup_driver', signup_driverRouter)
 /* ---------------------------- */
 

@@ -19,7 +19,7 @@ var sql_query = 'INSERT INTO users VALUES';
 
 // GET
 router.get('/', function(req, res, next) {
-	res.render('signupPassenger', { title: 'Modifying Database' });
+	res.render('signup_passenger', { title: 'Modifying Database' });
 });
 
 // POST
