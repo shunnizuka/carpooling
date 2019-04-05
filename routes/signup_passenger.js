@@ -34,9 +34,9 @@ router.post('/', function(req, res, next) {
 	var insert_query_users = sql_query + "('" + username + "','" + phone + "','" + password + "')";
 	//TODO: insert into passenger
 	//var insert_query_passengers = sql_query + "(" + 
-	
-	pool.query(insert_query, (err, data) => {
-		console.log(insert_query);
+	pool.query(insert_query_users, (err, data) => {
+		console.log(insert_query_users);
+		res.redirect('/login');
 	});
 
 

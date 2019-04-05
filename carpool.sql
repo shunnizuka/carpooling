@@ -82,14 +82,4 @@ VALUES ('Beatrice', 93234567, 'password' ),
  ('Leslie Cole', 91234567, 'password' ),
 ('B', 92234567, 'password' );
 
-INSERT INTO Passengers (userName, userPhone, userPassword)
-VALUES ('Beatrice', 93234567, 'password' ),
- ('Leslie Cole', 91234567, 'password' );
 
-INSERT INTO Vehicles(plateNumber, carType, carBrand, carColour, carModel)
- VALUES ('SDM4665P', '5 seater', 'Nissan', 'pink', 'Sunny'),
- ('SJK3629Z', '7 seater', 'BMW', 'black', 'aslkdjf');
-
-INSERT INTO Drivers (userName, userPhone, userPassword, plateNumber, rating)
-VALUES ('Leslie Cole', 91234567, 'password', 'SDM4665P', 2 ),
- ('B', 92234567, 'password', 'SJK3629Z', 4 );
