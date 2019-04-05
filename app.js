@@ -8,18 +8,17 @@ var logger = require('morgan');
 require('dotenv').load();
 
 /* --- FOR CARPOOLING     --- */
+var homeRouter = require('./routes/home');
 var loginRouter = require('./routes/login');
-var signupRouter = require('./routes/signup');
+var signup_passengerRouter = require('./routes/signup_passenger');
+var signup_driverRouter = require('./routes/signup_driver');
+var navbarRouter = require('./routes/navbar');
 /* ---------------------------- */
 
 /* --- FROM TEMPLATE --- */
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var aboutRouter = require('./routes/about');
 var tableRouter = require('./routes/table');
 var loopsRouter = require('./routes/loops');
 var selectRouter = require('./routes/select');
-var insertRouter = require('./routes/insert');
 /* ---------------------------- */
 
 var app = express();
@@ -34,32 +33,29 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
 /* --- FOR CARPOOLING    --- */
+app.use('/home', homeRouter);
 app.use('/login', loginRouter);
-app.use('/signup', signupRouter);
+app.use('/navbar', navbarRouter);
 /* ---------------------------- */
 
 /* --- FROM TEMPLATE --- */
-app.use('/about', aboutRouter);
 app.use('/table', tableRouter);
 app.use('/loops', loopsRouter);
 app.use('/select', selectRouter);
 /* ---------------------------- */
 
-</* --- Modify Database  --- */
+/* --- Modify Database  --- */
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /* --- FOR CARPOOLING    --- */
-app.use('/signup', signupRouter);
+app.use('/signup_passenger', signup_passengerRouter);
+app.use('/signup_driver', signup_driverRouter)
 /* ---------------------------- */
 
 /* --- FROM TEMPLATE    --- */
-app.use('/insert', insertRouter);
 /* ---------------------------- */
 
 /* ---------------------------- */

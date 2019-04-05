@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Home
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+    name='viewport' />
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- CSS Files -->
+  <link href="/assets/css/material-kit.css?v=2.0.5" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="/assets/demo/demo.css" rel="stylesheet" />
+</head>
+
+<body class="landing-page sidebar-collapse modal-open">
+  <div class="page-header header-filter" data-parallax="true"
+    style="background-image: url('/assets/img/carOnRoad.jpg')">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1 class="title">Our app name</h1>
+          <h4>Need a ride? - Sign up as a passenger to hitch a ride!</h4>
+          <h4>Own a car? - Register as a driver and earn some extra $$!</h4>
+          <br>
+          <a href="/login" class="btn btn-danger btn-raised btn-lg">Log In</a>
+          <button type="button" class="btn btn-danger btn-raised btn-lg" data-toggle="modal"
+          data-target="#myModal">Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="main main-raised">
+    <div class="container">
+      <div class="section text-center">
+        <div class="row">
+          <div class="col-md-8 ml-auto mr-auto">
+            <h2 class="title">APP NAME</h2>
+            <h5 class="description">Carpooling Application for anyone who needs a ride.</h5>
+          </div>
+        </div>
+        <div class="features">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="info">
+                <div class="icon icon-info">
+                  <i class="material-icons">chat</i>
+                </div>
+                <h4 class="info-title">Free Chat</h4>
+                <p>Divide details about your product or agency work into parts. Write a few lines about each one. A
+                  paragraph describing a feature will be enough.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="info">
+                <div class="icon icon-success">
+                  <i class="material-icons">verified_user</i>
+                </div>
+                <h4 class="info-title">Verified Users</h4>
+                <p>Divide details about your product or agency work into parts. Write a few lines about each one. A
+                  paragraph describing a feature will be enough.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="info">
+                <div class="icon icon-danger">
+                  <i class="material-icons">fingerprint</i>
+                </div>
+                <h4 class="info-title">Fingerprint</h4>
+                <p>Divide details about your product or agency work into parts. Write a few lines about each one. A
+                  paragraph describing a feature will be enough.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- pop up modal -->
+  <div class="modal fade show" id="myModal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="material-icons">clear</i>
+          </button>
+          <div class="modal-title"><strong>Register as a</strong></div>
+          <a href="/signup_passenger" class="btn btn-danger btn-round">Passenger<div
+              class="ripple-container"></div></a>
+          <a href="/signup_driver" class="btn btn-danger btn-round">Driver<div
+              class="ripple-container"></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="/assets/js/core/jquery.min.js" type="text/javascript"></script>
+  <script src="/assets/js/core/popper.min.js" type="text/javascript"></script>
+  <script src="/assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+  <script src="/assets/js/plugins/moment.min.js"></script>
+  <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+  <script src="/assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <script src="/assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
+  <script src="/assets/js/material-kit.js?v=2.0.5" type="text/javascript"></script>
+</body>
+
+</html>
