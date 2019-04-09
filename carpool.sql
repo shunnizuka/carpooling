@@ -46,11 +46,20 @@ create table Rides(
 	rideOrigin varchar(20) not null,
 	rideCurrentPrice float not null,
 	ridePlateNumber varchar(8) not null,
+	completed boolean not null,
 	primary key(rideId),
 	foreign key(ridePlateNumber) references Vehicles(plateNumber),
 	check ((rideTime) >= current_time),
 	check ((rideDate) >= current_date)
 );
+
+create table Ratings(
+	rideId integer,
+	userName varchar(20) not null,
+	score interger
+	primary key(rideId) references Rides(rideId),
+	foreign key(userName) references Drivers(userName)
+)
 
 create table Bids(
 	bidderName varchar(20) not null,
