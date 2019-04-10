@@ -49,7 +49,7 @@ create table Rides(
 	rideOrigin varchar(20) not null,
 	rideCurrentPrice float not null,
 	ridePlateNumber varchar(8) not null,
-	completed boolean not null,
+	completed boolean default false,
 	primary key(rideId),
 	foreign key(ridePlateNumber) references Vehicles(plateNumber),
 	check ((rideTime) >= current_time),
@@ -92,7 +92,27 @@ create table PaymentMethod(
 
 INSERT INTO Users (userName, userPhone, userPassword)
 VALUES ('Beatrice', 93234567, 'password' ),
- ('Leslie Cole', 91234567, 'password' ),
-('B', 92234567, 'password' );
+('Rohan', 91234567, 'password' ),
+('Shune', 91234568, 'password' ),
+('Bava', 92234567, 'password' );
+
+INSERT INTO Drivers(userName, rating)
+VALUES ('Rohan', 5),
+('Shune', 4),
+('Bava', 3),
+('Beatrice', 5);
+
+
+INSERT INTO Vehicles(plateNumber, driverUserName, carType, carBrand, carModel, carColour)
+VALUES ('12345678', 'Rohan', '7-seater', 'Toyota', '1234WWW', 'red'),
+('87654321', 'Shune', '7-seater', 'Toyota', '4321WWW', 'pink'),
+('11223344', 'Bava', '7-seater', 'Toyota', '1234YYY', 'red'),
+('44332211', 'Beatrice', '7-seater', 'Toyota', '7654WWW', 'yellow');
+
+INSERT INTO Rides (rideDate, rideTime, rideDestination, rideOrigin, rideCurrentPrice, ridePlateNumber)
+VALUES ('11/11/2019', current_time, 'Jalan Bukit Merah', 'NUS', 1, '44332211'),
+ ('11/12/2019', current_time, 'NUS', 'Jalan Bukit Merah', 2, '87654321'),
+  ('28/02/2020', current_time, 'Sembawang', 'Punggol', 1, '11223344'),
+   ('30/03/2020', current_time, 'Punggol', 'NUS', 3, '12345678');
 
 
