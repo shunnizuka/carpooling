@@ -14,31 +14,40 @@ const pool = new Pool({
 	connectionString: process.env.DATABASE_URL
 });
 
-/* SQL Query */
-var sql_query = 'INSERT INTO users VALUES';
-
 // GET
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
 	res.render('signup_passenger', { title: 'Modifying Database' });
 });
 
 // POST
-router.post('/', function(req, res, next) {
-	// Retrieve Information
-	var username  = req.body.username;
-	var phone    = req.body.phone;
-	var password = req.body.password;
-	
-	console.log("('" + username + "','" + phone + "','" + password + "')")
-	// Construct Specific SQL Query
-	var insert_query_users = sql_query + "('" + username + "','" + phone + "','" + password + "')";
-	//TODO: insert into passenger
-	//var insert_query_passengers = sql_query + "(" + 
-	pool.query(insert_query_users, (err, data) => {
-		console.log(insert_query_users);
-		res.redirect('/login');
-	});
+router.post('/', function (req, res, next) {
 
+	// Retrieve Information
+	var username = req.body.username;
+	var phone = req.body.phone;
+	var password = req.body.password;
+
+	// Construct Specific SQL Query
+	var insert_query_users = 'INSERT INTO users VALUES' + "('" + username + "','" + phone + "','" + password + "')";
+	var insert_query_passengers = 'INSERT INTO passengers VALUES' + "('" + username + "')";
+
+	(async () => {
+	
+		const client = await pool.connect()
+		//transaction to add users and passenger
+		try {
+			await client.query('BEGIN');
+			const { rows } = await client.query(insert_query_users);
+			await client.query(insert_query_passengers);
+			await client.query('COMMIT');
+			res.render('/login');
+		} catch (e) {
+			await client.query('ROLLBACK')
+			throw e
+		} finally {
+			client.release()
+		}
+	})().catch(e => console.error(e.stack))
 
 });
 

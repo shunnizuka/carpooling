@@ -3,6 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser = require('body-parser');
+var session = require('express-session');
+var flash = require('connect-flash');
 
 /* --- V7: Using dotenv     --- */
 require('dotenv').load();
@@ -32,6 +35,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
+
+app.use(session({
+  key: 'username',
+  secret: 'sjfoeijfelf',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {expires: 300000}
+}));
 
 /* --- FOR CARPOOLING    --- */
 app.use('/home', homeRouter);
@@ -46,18 +58,12 @@ app.use('/select', selectRouter);
 /* ---------------------------- */
 
 /* --- Modify Database  --- */
-var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /* --- FOR CARPOOLING    --- */
 app.use('/signup_passenger', signup_passengerRouter);
 app.use('/signup_driver', signup_driverRouter)
-/* ---------------------------- */
-
-/* --- FROM TEMPLATE    --- */
-/* ---------------------------- */
-
 /* ---------------------------- */
 
 // catch 404 and forward to error handler
