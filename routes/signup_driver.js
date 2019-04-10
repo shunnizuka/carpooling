@@ -14,8 +14,6 @@ const pool = new Pool({
 	connectionString: process.env.DATABASE_URL
 });
 
-/* SQL Query */
-var sql_query = 'INSERT INTO users VALUES';
 
 // GET
 router.get('/', function(req, res, next) {
@@ -29,10 +27,10 @@ router.post('/', function(req, res, next) {
 	var phone    = req.body.phone;
 	var password = req.body.password;
 	
-	console.log("('" + username + "','" + phone + "','" + password + "')")
 	// Construct Specific SQL Query
-	var insert_query = sql_query + "('" + username + "','" + phone + "','" + password + "')";
-	
+	var insert_query_users = 'INSERT INTO users VALUES' + "('" + username + "','" + phone + "','" + password + "')";
+	var insert_query_drivers = 'INSERT INTO drivers VALUES' + "('" + username + "')";
+
 	pool.query(insert_query, (err, data) => {
 		res.redirect('/login');
 	});

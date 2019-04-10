@@ -27,21 +27,20 @@ router.post('/', function (req, res, next) {
 	var phone = req.body.phone;
 	var password = req.body.password;
 
-	console.log("('" + username + "','" + phone + "','" + password + "')")
 	// Construct Specific SQL Query
 	var insert_query_users = 'INSERT INTO users VALUES' + "('" + username + "','" + phone + "','" + password + "')";
 	var insert_query_passengers = 'INSERT INTO passengers VALUES' + "('" + username + "')";
 
 	(async () => {
-		// note: we don't try/catch this because if connecting throws an exception
-		// we don't need to dispose of the client (it will be undefined)
+	
 		const client = await pool.connect()
-
+		//transaction to add users and passenger
 		try {
 			await client.query('BEGIN');
 			const { rows } = await client.query(insert_query_users);
 			await client.query(insert_query_passengers);
 			await client.query('COMMIT');
+			res.render('/login');
 		} catch (e) {
 			await client.query('ROLLBACK')
 			throw e
