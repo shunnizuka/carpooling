@@ -40,7 +40,7 @@ router.post('/', function (req, res, next) {
 			const { rows } = await client.query(insert_query_users);
 			await client.query(insert_query_passengers);
 			await client.query('COMMIT');
-			res.render('/login');
+			res.redirect('/login');
 		} catch (e) {
 			await client.query('ROLLBACK')
 			throw e
