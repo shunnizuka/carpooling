@@ -5,6 +5,9 @@ DROP TABLE if exists Rides cascade;
 DROP TABLE if exists Vehicles cascade;
 DROP TABLE if exists Preferences cascade;
 DROP TABLE if exists PaymentMethod cascade;
+DROP TABLE if exists Bids cascade;
+DROP TABLE if exists Rides cascade;
+DROP TABLE if exists Ratings cascade;
 
 create table Users(
 	userName varchar(20) not null,
@@ -20,6 +23,13 @@ create table Passengers(
 	foreign key(userName) references Users(userName)
 );
 
+create table Drivers(
+	userName varchar(20) not null,
+	rating integer,
+	primary key(userName),
+	foreign key(userName) references Users(userName)
+);
+
 create table Vehicles(
 	plateNumber varchar(8) not null,
 	driverUserName varchar(20),
@@ -29,13 +39,6 @@ create table Vehicles(
 	carColour varchar(20) not null,
 	primary key(plateNumber),
 	foreign key(driverUserName) references Drivers(userName)
-);
-
-create table Drivers(
-	userName varchar(20) not null,
-	rating integer,
-	primary key(userName),
-	foreign key(userName) references Users(userName)
 );
 
 create table Rides(
@@ -56,10 +59,11 @@ create table Rides(
 create table Ratings(
 	rideId integer,
 	userName varchar(20) not null,
-	score interger
-	primary key(rideId) references Rides(rideId),
+	score integer,
+	primary key(rideID),
+	foreign key(rideId) references Rides(rideId),
 	foreign key(userName) references Drivers(userName)
-)
+);
 
 create table Bids(
 	bidderName varchar(20) not null,

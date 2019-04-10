@@ -30,7 +30,7 @@
     <div class="container">
       <div class="col-lg-8 col-md-20 ml-auto mr-auto">
         <div class="card card-login">
-          <form id="signup-form-passenger" class="form" method="POST" action="signupPassenger">
+          <form id="signup-form-passenger" class="form" method="POST" action="signup_driver">
             <div class="row">
               <div class="col-lg-10 col-md-8 ml-auto mr-auto">
                 <div class="card-header card-header-primary text-center">
@@ -74,26 +74,26 @@
                   <p class="text-primary text-center">Enter your Car details below</p>
                   <div class="form-group">
                     <label for="platenumber" class="bmd-label-floating">Plate Number</label>
-                    <input type="text" id="platenumber" name="platenumber" class="form-control" id="platenumber">
+                    <input type="text" id="platenumber" name="platenumber" minlength="8" maxlength="8" class="form-control" >
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label for="inputEmail4" class="bmd-label-floating">Car Brand</label>
-                      <input type="text" id="carbrand" name="carbrand" class="form-control" id="platenumber">
+                      <label for="carbrand" class="bmd-label-floating">Car Brand</label>
+                      <input type="text" id="carbrand" name="carbrand" class="form-control">
                     </div>
                     <div class="form-group col-md-6">
-                      <label for="inputPassword4" class="bmd-label-floating">Car Model</label>
-                      <input type="text" id="carmodel" name="carmodel" class="form-control" id="inputPassword4">
+                      <label for="carmodel" class="bmd-label-floating">Car Model</label>
+                      <input type="text" id="carmodel" name="carmodel" class="form-control">
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label for="color" id="carcolor" name="carcolor" class="bmd-label-floating">Car Color</label>
+                      <label for="carcolor" id="carcolor" name="carcolor" class="bmd-label-floating">Car Color</label>
                       <input type="text" class="form-control" id="color">
                     </div>
                     <div class="form-group col-md-3">
-                      <label for="inputState" class="bmd-label-floating">Type</label>
-                      <select id="inputState" class="form-control">
+                      <label for="cartype" class="bmd-label-floating">Type</label>
+                      <select id="cartype" name="cartype" class="form-control">
                         <option selected>Choose...</option>
                         <option>5-seater</option>
                         <option>7-seater</option>
@@ -129,17 +129,6 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/material-kit.js?v=2.0.5" type="text/javascript"></script>
-
-  <script>
-    (function () {
-      window.addEventListener('load', function () {
-        var forms = [document.getElementById('signup-form-passenger')];
-        var validation = Array.prototype.filter.call(forms, function (form) {
-          form.addEventListener('submit', check, false);
-        });
-      }, false);
-    })();
-  </script>
 </body>
 
 </html>
