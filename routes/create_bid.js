@@ -16,7 +16,7 @@ const pool = new Pool({
 
 // GET
 router.get('/', function (req, res, next) {
-	res.redirect('signup_passenger', { title: 'Modifying Database' });
+	res.render('create_bid', { title: 'Update Bids Table' });
 });
 
 // POST
@@ -24,21 +24,19 @@ router.post('/', function (req, res, next) {
 
 	// Retrieve Information
 	var username = req.body.username;
-	var phone = req.body.phone;
-	var password = req.body.password;
+	var rideID = req.body.rideID;
+	var price = req.body.price;
 
 	// Construct Specific SQL Query
-	var insert_query_users = 'INSERT INTO users VALUES' + "('" + username + "','" + phone + "','" + password + "')";
-	var insert_query_passengers = 'INSERT INTO passengers VALUES' + "('" + username + "')";
+	var create_bid_passenger = 'INSERT INTO bids VALUES' + "('" + username + "','" + rideID + "','" + price + "')";
 
 	(async () => {
 	
 		const client = await pool.connect()
-		//transaction to add users and passenger
+		//transaction to add bid 
 		try {
 			await client.query('BEGIN');
-			const { rows } = await client.query(insert_query_users);
-			await client.query(insert_query_passengers);
+			const { rows } = await client.query(create_bid_passenger);
 			await client.query('COMMIT');
 			res.redirect('/login');
 		} catch (e) {
