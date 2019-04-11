@@ -17,7 +17,8 @@ const pool = new Pool({
 });
 
 // query to display all available rides
-var all_rides_query = 'SELECT * FROM rides R INNER JOIN bids B ON R.rideid = B.rideid ORDER BY B.price DESC;'
+var all_rides_query = 'SELECT * FROM rides R ORDER BY R.rideCurrentPrice DESC;'
+
 
 // GET
 router.get('/', function (req, res, next) {
@@ -25,8 +26,9 @@ router.get('/', function (req, res, next) {
 	username = req.session.username;
 	if (username != undefined) {
 		pool.query(all_rides_query, (err, data) => {
+      console.log(all_rides_query);
       res.render('filter_rides', { title: 'All Rides', data: data.rows });
-      //console.log(data);
+      console.log(data);
     });
 	} else {
 		res.redirect('/login');
@@ -38,24 +40,36 @@ router.post('/', function(req, res, next) {
 	var origin = req.body.origin;
   var destination = req.body.destination;
   var biddername = req.session.username;
-  var rideid = req.body.rideid;
+  var rideid = req.body.rideId;
   var price = req.body.price;
 
 	console.log(origin, destination);
   
 	if (origin != undefined & destination != undefined) {
-	  // Construct Specific SQL Query
-	  var filter_query_rides = 'SELECT * FROM rides R INNER JOIN bids B ON R.rideId = B.rideId WHERE R.rideOrigin = ' 
-		+ "'" + origin + "'" + ' AND R.rideDestination = '  + "'" + destination + "'" + ' ORDER BY  B.price DESC;';
+	  // Construct specific SQL Query
+    var filter_query_rides = 'SELECT * FROM rides R WHERE R.rideOrigin = ' + "'" + origin + "'" + 
+    ' AND R.rideDestination = '  + "'" + destination + "'" + ' ORDER BY  R.rideCurrentPrice DESC;';
     console.log(filter_query_rides);
     
     pool.query(filter_query_rides, (err, data) => {
-		res.render('filter_rides', { title: 'Available Rides', data: data.rows });
-		console.log(data);
+		  res.render('filter_rides', { title: 'Available Rides', data: data.rows });
+		  console.log(data);
 	  });
   } else {
-	  res.render('filter_rides', { title: 'Carpooling' });
-	}
+    // Construct specific SQL Query
+    var insert_query_bids = 'INSERT INTO bids VALUES' + "('" + biddername + "','" + rideid + "','" + price + "')";
+    console.log(insert_query_bids);
+
+    pool.query(insert_query_bids, (err, data) => {
+      if (err) {
+        console.log("error");
+        res.redirect('/filter_rides');
+      } else {
+        res.redirect('/filter_rides');
+        console.log("success");
+      }
+    });
+  }
 });
 
 module.exports = router;
