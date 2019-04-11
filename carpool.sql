@@ -52,8 +52,6 @@ create table Rides(
 	completed boolean default false,
 	primary key(rideId),
 	foreign key(ridePlateNumber) references Vehicles(plateNumber),
-	check ((rideTime) >= current_time),
-	check ((rideDate) >= current_date)
 );
 
 create table Ratings(
@@ -94,7 +92,11 @@ INSERT INTO Users (userName, userPhone, userPassword)
 VALUES ('Beatrice', 93234567, 'password' ),
 ('Rohan', 91234567, 'password' ),
 ('Shune', 91234568, 'password' ),
-('Bava', 92234567, 'password' );
+('Bava', 92234567, 'password' ),
+('RohanDev', 96853214, 'password'),
+('Shunnika', 96853217, 'password'),
+('Bavaaaaa', 96853218, 'password'),
+('Beesaycheese', 96853219, 'password');
 
 INSERT INTO Drivers(userName, rating)
 VALUES ('Rohan', 5),
@@ -102,6 +104,11 @@ VALUES ('Rohan', 5),
 ('Bava', 3),
 ('Beatrice', 5);
 
+INSERT INTO Passengers(userName, rating)
+VALUES ('RohanDev', 5),
+('Shunnika', 4),
+('Bavaaaaa', 3),
+('Beesaycheese', 5);
 
 INSERT INTO Vehicles(plateNumber, driverUserName, carType, carBrand, carModel, carColour)
 VALUES ('12345678', 'Rohan', '7-seater', 'Toyota', '1234WWW', 'red'),
@@ -116,3 +123,9 @@ VALUES ('2019-11-11', current_time, 'Jalan Bukit Merah', 'NUS', 1, '44332211'),
 ('2020-03-30', current_time, 'Punggol', 'NUS', 3, '12345678'),
 ('2020-03-29', current_time, 'Punggol', 'NUS', 20, '12345678');
 
+INSERT INTO Bids (bidderName, rideId, price)
+VALUES ('Beesaycheese', 1, 1),
+('Shunnika', 2, 2),
+('RohanDev', 3, 30),
+('Bavaaaaa', 2, 20),
+('Bavaaaaa', 1, 10);
