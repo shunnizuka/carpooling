@@ -19,7 +19,7 @@ router.get('/', function (req, res, next) {
 
 	username = req.session.username;
 	if (username != undefined) {
-		res.redirect('/navbar');
+		res.redirect('/filter_rides');
 	} else {
 		res.render('login', { title: 'Carpooling' });
 	}
@@ -54,7 +54,7 @@ router.post('/', [
 					if (result.rows[0].userpassword === password) {
 						console.log('login success');
 						req.session.username = username;
-						res.redirect('/navbar');
+						res.redirect('/filter_rides');
 					} else {
 
 						console.log('invalid login' + result.rows[0].password);
