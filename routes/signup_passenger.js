@@ -16,7 +16,7 @@ const pool = new Pool({
 
 // GET
 router.get('/', function (req, res, next) {
-	res.redirect('signup_passenger', { title: 'Modifying Database' });
+	res.render('signup_passenger', { title: 'Modifying Database' });
 });
 
 // POST
