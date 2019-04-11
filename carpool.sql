@@ -51,6 +51,7 @@ create table Rides(
 	completed boolean default false,
 	primary key(rideId),
 	foreign key(ridePlateNumber) references Vehicles(plateNumber)
+	ON DELETE CASCADE
 );
 
 create table Ratings(
@@ -70,6 +71,7 @@ create table Bids(
 	foreign key(bidderName) references Passengers(userName),
 	foreign key(rideId) references Rides(rideId),
 	check (price > 0)
+	ON DELETE CASCADE
 );
 
 create table Preferences(
@@ -93,7 +95,11 @@ INSERT INTO Users (userName, userPhone, userPassword)
 VALUES ('Beatrice', 93234567, 'password' ),
 ('Rohan', 91234567, 'password' ),
 ('Shune', 91234568, 'password' ),
-('Bava', 92234567, 'password' );
+('Bava', 92234567, 'password' ),
+('RohanDev', 96853214, 'password'),
+('Shunnika', 96853217, 'password'),
+('Bavaaaaa', 96853218, 'password'),
+('Beesaycheese', 96853219, 'password');
 
 INSERT INTO Drivers(userName, rating)
 VALUES ('Rohan', 5),
