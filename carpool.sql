@@ -18,7 +18,6 @@ create table Users(
 
 create table Passengers(
 	userName varchar(20) not null,
-	rating integer default 0,
 	primary key(userName),
 	foreign key(userName) references Users(userName)
 );
@@ -51,7 +50,8 @@ create table Rides(
 	ridePlateNumber varchar(8) not null,
 	completed boolean default false,
 	primary key(rideId),
-	foreign key(ridePlateNumber) references Vehicles(plateNumber),
+	foreign key(ridePlateNumber) references Vehicles(plateNumber)
+	ON DELETE CASCADE
 );
 
 create table Ratings(
@@ -71,6 +71,7 @@ create table Bids(
 	foreign key(bidderName) references Passengers(userName),
 	foreign key(rideId) references Rides(rideId),
 	check (price > 0)
+	ON DELETE CASCADE
 );
 
 create table Preferences(
@@ -82,10 +83,12 @@ create table Preferences(
 );
 
 create table PaymentMethod(
+	userName varchar(20) not null,
 	cardNumber integer not null,
 	cardType varchar(20) not null,
 	cardCVI integer not null,
-	primary key(cardNumber)
+	primary key(cardNumber),
+	foreign key(userName) references Passengers(userName)
 );
 
 INSERT INTO Users (userName, userPhone, userPassword)
@@ -104,11 +107,11 @@ VALUES ('Rohan', 5),
 ('Bava', 3),
 ('Beatrice', 5);
 
-INSERT INTO Passengers(userName, rating)
-VALUES ('RohanDev', 5),
-('Shunnika', 4),
-('Bavaaaaa', 3),
-('Beesaycheese', 5);
+INSERT INTO Passengers(userName)
+VALUES ('Rohan'),
+('Shune'),
+('Bava'),
+('Beatrice');
 
 INSERT INTO Vehicles(plateNumber, driverUserName, carType, carBrand, carModel, carColour)
 VALUES ('12345678', 'Rohan', '7-seater', 'Toyota', '1234WWW', 'red'),
@@ -117,15 +120,73 @@ VALUES ('12345678', 'Rohan', '7-seater', 'Toyota', '1234WWW', 'red'),
 ('44332211', 'Beatrice', '7-seater', 'Toyota', '7654WWW', 'yellow');
 
 INSERT INTO Rides (rideDate, rideTime, rideDestination, rideOrigin, rideCurrentPrice, ridePlateNumber)
-VALUES ('2019-11-11', current_time, 'Jalan Bukit Merah', 'NUS', 1, '44332211'),
-('2019-12-11', current_time, 'NUS', 'Jalan Bukit Merah', 2, '87654321'),
-('2020-08-02', current_time, 'Sembawang', 'Punggol', 1, '11223344'),
-('2020-03-30', current_time, 'Punggol', 'NUS', 3, '12345678'),
-('2020-03-29', current_time, 'Punggol', 'NUS', 20, '12345678');
+VALUES ('11/11/2019', current_time, 'Jalan Bukit Merah', 'NUS', 25, '44332211'),
+('11/12/2019', current_time, 'NUS', 'Jalan Bukit Merah', 25, '87654321'),
+('28/02/2020', current_time, 'Sembawang', 'Punggol', 15, '11223344'),
+('30/03/2020', current_time, 'Punggol', 'NUS', 35, '12345678');
 
 INSERT INTO Bids (bidderName, rideId, price)
-VALUES ('Beesaycheese', 1, 1),
-('Shunnika', 2, 2),
-('RohanDev', 3, 30),
-('Bavaaaaa', 2, 20),
-('Bavaaaaa', 1, 10);
+VALUES ('Rohan', 1, 20.0),
+('Bava', 1, 15.0),
+('Shune', 1, 23.0),
+('Rohan', 2, 17.0),
+('Bava', 2, 19.0),
+('Beatrice', 2, 14.0),
+('Rohan', 3, 12.0),
+('Shune', 3, 24.0),
+('Beatrice', 3, 18.0),
+('Shune', 4, 10.0),
+('Bava', 4, 27.0),
+('Beatrice', 4, 16.0);
+
+CREATE OR REPLACE FUNCTION check_bid()
+RETURNS TRIGGER AS
+$$
+DECLARE maxBid FLOAT;
+BEGIN
+	SELECT R.rideCurrentPrice INTO maxBid
+	FROM Rides R
+	WHERE R.rideId = NEW.rideId;
+	IF NEW.price <= maxBid THEN RETURN NULL;
+		ELSE 
+		PERFORM update_rides_maxPrice(NEW.rideId, NEW.price);
+		RETURN NEW;
+	END IF;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER check_bid
+BEFORE INSERT OR UPDATE ON Bids
+FOR EACH ROW
+EXECUTE PROCEDURE check_bid();
+
+CREATE OR REPLACE FUNCTION update_rides_maxPrice
+(r_id INTEGER, price FLOAT)
+RETURNS void
+AS
+$$
+BEGIN
+	UPDATE Rides
+	SET rideCurrentPrice = price
+	WHERE r_id = rideId;
+END
+$$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION update_rides_dateAndTime()
+RETURNS TRIGGER AS
+$$
+BEGIN
+	RAISE NOTICE 'Invalid date and time';
+	RETURN NULL;
+END
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER update_rides_dateAndTime
+BEFORE INSERT OR UPDATE ON Rides
+FOR EACH ROW
+WHEN ((NEW.rideDate < CURRENT_DATE)
+OR ((NEW.rideDate = CURRENT_DATE) AND (NEW.rideTime < CURRENT_TIME)))
+EXECUTE PROCEDURE update_rides_dateAndTime();

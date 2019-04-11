@@ -10,15 +10,20 @@ const pool = new Pool({
 
 router.get('/', function(req, res, next) {
 	
-	var username = 'Rohan';
-	
-	/* SQL Query */
-	var sql_query = 'SELECT * FROM rides R WHERE EXISTS( SELECT * FROM vehicles V WHERE ' + "'" + username + "'" + ' = V.driverUserName AND V.plateNumber = R.ridePlateNumber);';
-	console.log(sql_query);
-	pool.query(sql_query, (err, data) => {
+	var username = req.session.username;
 
-    res.render('myRides_drivers', { title: 'Drivers Rides', data: data.rows });
-	});
+	if(username != undefined) {
+		/* SQL Query */
+		var sql_query = 'SELECT * FROM rides R WHERE EXISTS( SELECT * FROM vehicles V WHERE ' + "'" + username + "'" + ' = V.driverUserName AND V.plateNumber = R.ridePlateNumber);';
+		console.log(sql_query);
+		pool.query(sql_query, (err, data) => {
+
+		res.render('myRides_drivers', { title: 'Drivers Rides', data: data.rows });
+		});
+	} else {
+        res.redirect('/login');
+	}
+	
 });
 
 // POST
@@ -43,7 +48,7 @@ router.post('/', function (req, res, next) {
 			await client.query('BEGIN');
 			const { rows } = await client.query(update_ride);
 			await client.query('COMMIT');
-			res.redirect('/bids');
+			res.redirect('/myRides_drivers');
 		} catch (e) {
 			await client.query('ROLLBACK')
 			throw e

@@ -9,16 +9,21 @@ const pool = new Pool({
 });
 
 router.get('/', function(req, res, next) {
-	
-	var username = 'Rohan';
-	
-	/* SQL Query */
-	var sql_query = 'SELECT * FROM rides R WHERE EXISTS( SELECT * FROM vehicles V WHERE ' + "'" + username + "'" + ' = V.driverUserName AND V.plateNumber = R.ridePlateNumber);';
-	console.log(sql_query);
-	pool.query(sql_query, (err, data) => {
+		
+	var username = req.session.username;
 
-    res.render('myRides_drivers', { title: 'Drivers Rides', data: data.rows });
-	});
+	if(username != undefined) {
+		/* SQL Query */
+        var sql_query = 'SELECT * FROM rides R WHERE EXISTS( SELECT * FROM vehicles V WHERE ' + "'" + username + "'" + ' = V.driverUserName AND V.plateNumber = R.ridePlateNumber);';
+        console.log(sql_query);
+        pool.query(sql_query, (err, data) => {
+
+        res.render('myRides_drivers', { title: 'Drivers Rides', data: data.rows });
+        });
+	} else {
+        res.redirect('/login');
+	}
+	
 });
 
 // POST to delete ride
@@ -26,7 +31,7 @@ router.post('/', function(req, res, next) {
     
     //retrieve info from the page
     var rideId = req.body.rideid;
-    var username = 'Rohan';
+    var username = req.session.username;
 
     //SQL query
 	var sql_query = 'DELETE FROM rides R WHERE EXISTS( SELECT * FROM vehicles V WHERE ' + "'" + username + "'" + ' = V.driverUserName AND V.plateNumber = R.ridePlateNumber AND rideId = ' + "'" + rideId + "');";

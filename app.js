@@ -16,6 +16,7 @@ var loginRouter = require('./routes/login');
 var signup_passengerRouter = require('./routes/signup_passenger');
 var signup_driverRouter = require('./routes/signup_driver');
 var navbarRouter = require('./routes/navbar');
+var filter_ridesRouter = require('./routes/filter_rides');
 var myRidesDriversRouter = require('./routes/myRides_drivers')
 var bidsRouter = require('./routes/bids');
 var create_rideRouter = require('./routes/create_rides');
@@ -70,6 +71,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /* --- FOR CARPOOLING    --- */
 app.use('/signup_passenger', signup_passengerRouter);
 app.use('/signup_driver', signup_driverRouter);
+app.use('/filter_rides', filter_ridesRouter);
 app.use('/create_rides', create_rideRouter);
 app.use('/update_rides', update_ridesRourter);
 /* ---------------------------- */
