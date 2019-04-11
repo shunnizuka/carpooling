@@ -16,9 +16,13 @@ var loginRouter = require('./routes/login');
 var signup_passengerRouter = require('./routes/signup_passenger');
 var signup_driverRouter = require('./routes/signup_driver');
 var navbarRouter = require('./routes/navbar');
+var filter_ridesRouter = require('./routes/filter_rides');
+var myRidesDriversRouter = require('./routes/myRides_drivers')
+var bidsRouter = require('./routes/bids');
 var create_rideRouter = require('./routes/create_rides');
 var profile_passengerRouter = require('./routes/profile_passenger');
 var profile_driverRouter = require('./routes/profile_driver');
+var update_ridesRourter = require('./routes/update_rides');
 /* ---------------------------- */
 
 /* --- FROM TEMPLATE --- */
@@ -52,6 +56,8 @@ app.use(session({
 app.use('/home', homeRouter);
 app.use('/login', loginRouter);
 app.use('/navbar', navbarRouter);
+app.use('/myRides_drivers', myRidesDriversRouter)
+app.use('/bids', bidsRouter);
 /* ---------------------------- */
 
 /* --- FROM TEMPLATE --- */
@@ -67,9 +73,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /* --- FOR CARPOOLING    --- */
 app.use('/signup_passenger', signup_passengerRouter);
 app.use('/signup_driver', signup_driverRouter);
+app.use('/filter_rides', filter_ridesRouter);
 app.use('/create_rides', create_rideRouter);
 app.use('/profile_passenger', profile_passengerRouter);
 app.use('/profile_driver', profile_driverRouter);
+app.use('/update_rides', update_ridesRourter);
 /* ---------------------------- */
 
 // catch 404 and forward to error handler

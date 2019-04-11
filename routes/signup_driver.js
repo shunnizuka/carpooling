@@ -17,7 +17,7 @@ const pool = new Pool({
 
 // GET
 router.get('/', function(req, res, next) {
-	res.render('signup_driver', { title: 'signup_driver' });
+	res.redirect('signup_driver', { title: 'signup_driver' });
 });
 
 // POST
