@@ -102,6 +102,11 @@ VALUES ('Rohan', 5),
 ('Bava', 3),
 ('Beatrice', 5);
 
+INSERT INTO Passengers(userName)
+VALUES ('Rohan'),
+('Shune'),
+('Bava'),
+('Beatrice');
 
 INSERT INTO Vehicles(plateNumber, driverUserName, carType, carBrand, carModel, carColour)
 VALUES ('12345678', 'Rohan', '7-seater', 'Toyota', '1234WWW', 'red'),
@@ -111,8 +116,20 @@ VALUES ('12345678', 'Rohan', '7-seater', 'Toyota', '1234WWW', 'red'),
 
 INSERT INTO Rides (rideDate, rideTime, rideDestination, rideOrigin, rideCurrentPrice, ridePlateNumber)
 VALUES ('11/11/2019', current_time, 'Jalan Bukit Merah', 'NUS', 1, '44332211'),
- ('11/12/2019', current_time, 'NUS', 'Jalan Bukit Merah', 2, '87654321'),
-  ('28/02/2020', current_time, 'Sembawang', 'Punggol', 1, '11223344'),
-   ('30/03/2020', current_time, 'Punggol', 'NUS', 3, '12345678');
+('11/12/2019', current_time, 'NUS', 'Jalan Bukit Merah', 2, '87654321'),
+('28/02/2020', current_time, 'Sembawang', 'Punggol', 1, '11223344'),
+('30/03/2020', current_time, 'Punggol', 'NUS', 3, '12345678');
 
-
+INSERT INTO Bids (bidderName, rideId, price)
+VALUES ('Rohan', 1, 20.0),
+('Bava', 1, 15.0),
+('Shune', 1, 23.0),
+('Rohan', 2, 17.0),
+('Bava', 2, 19.0),
+('Beatrice', 2, 14.0),
+('Rohan', 3, 12.0),
+('Shune', 3, 24.0),
+('Beatrice', 3, 18.0),
+('Shune', 4, 10.0),
+('Bava', 4, 27.0),
+('Beatrice', 4, 16.0);
