@@ -18,50 +18,77 @@ router.get('/', function (req, res, next) {
     //add this to the pages that need to be logged in to access
     username = req.session.username;
     if (username != undefined) {
-        res.render('create_rides', { title: 'Carpooling' });
+        var data = [{ max: 0, min: 0, avg: 0 }]
+        res.render('create_rides', { title: 'Carpooling', data: data });
     } else {
         res.redirect('/login');
     }
 });
 
-//POST
+
+//POST to create
 router.post('/', function (req, res, next) {
 
     //SQL query
-    var session = req.session;
+    var retrieve_platenumber_query = 'SELECT platenumber FROM Vehicles WHERE driverusername=' + "'" + req.session.username + "';";
 
-    var retrieve_platenumber = 'SELECT platenumber FROM Vehicles WHERE driverusername=' + "'" + req.session.username + "';";
-    var platenumber;
-
+    //retrieve info from the page
     var origin = req.body.origin;
     var destination = req.body.destination;
     var date = req.body.date;
     var time = req.body.time;
     var price = req.body.price;
+    var originPrice = req.body.originPrice;
+    var destinationPrice = req.body.destinationPrice;
 
-    console.log(retrieve_platenumber);
+    console.log(retrieve_platenumber_query);
+    console.log(originPrice + ' ' + destinationPrice);
 
-    pool.connect((err, client, release) => {
+    //for the price checker
+    if (originPrice != undefined && destinationPrice != undefined) {
 
-        client.query(retrieve_platenumber, (err, result) => {
-            release();
+        console.log("checking price");
+        var find_stat_query = 'SELECT max(rideCurrentPrice), min(rideCurrentPrice), avg(rideCurrentPrice) FROM Rides GROUP BY' +
+            ' (rideDestination, rideOrigin) having rideOrigin=' + "'" + originPrice + "'" + "AND rideDestination="
+            + "'" + destinationPrice + "';";
 
-            var platenumber = result.rows[0].platenumber;
-            // Construct Specific SQL Query
-            var insert_query_rides = 'INSERT INTO Rides (rideDate, rideTime, rideDestination, rideOrigin, rideCurrentPrice, ridePlateNumber) VALUES' 
-            + "('" + date + "','" + time + "','" + destination + "','"+ origin + "','" + price + "','" + platenumber + "');";
+        console.log(find_stat_query);
+        pool.query(find_stat_query, (err, data) => {
+            console.log(data);
+            if (data.rows.length != 0) {
+                console.log('success');
+                res.render('create_rides', { title: 'Rides', data: data.rows });
+            } else { //if no rides available, just redirect 
+                console.log('fail');
+                res.redirect('/create_rides');
+            }
+        })
+    } else {
+        //insert into rides
+        pool.connect((err, client, release) => {
 
-            console.log(insert_query_rides);
-            client.query(insert_query_rides, (err, result) => {
-                if (err) {
-                    console.log('error');
-                    res.redirect('/create_rides');
-                } else {
-                    res.redirect('/create_rides');
-                }
+            //Query to get plate number
+            client.query(retrieve_platenumber_query, (err, result) => {
+                release();
+
+                var platenumber = result.rows[0].platenumber;
+                console.log(platenumber);
+                // Query to insert
+                var insert_query_rides = 'INSERT INTO Rides (rideDate, rideTime, rideDestination, rideOrigin, rideCurrentPrice, ridePlateNumber) VALUES'
+                    + "('" + date + "','" + time + "','" + destination + "','" + origin + "','" + price + "','" + platenumber + "');";
+
+                console.log(insert_query_rides);
+                client.query(insert_query_rides, (err, result) => {
+                    if (err) {
+                        console.log('error');
+                        res.redirect('/create_rides');
+                    } else {
+                        res.redirect('/create_rides');
+                    }
+                });
             });
-        });
-    })
+        })
+    }
 });
 
 module.exports = router;

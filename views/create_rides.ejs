@@ -52,6 +52,41 @@
                     <strong>ADVERTISE RIDE</strong>
                 </div>
                 <div class="card-body">
+                    <div class="card">
+                        <form id="check-price-form" method="POST" action="create_rides" class="card-body">
+                            <h4 class="card-title">Check Current Price</h4>
+                            <p class="card-text">Input origin and destination to check current prevalent price</p>
+                            <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="originPrice">Origin</label>
+                                        <input type="text" class="form-control" id="originPrice" name="originPrice"
+                                            placeholder="Start destination">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="destinationPrice">Destination</label>
+                                        <input type="text" class="form-control" id="destinationPrice" name="destinationPrice"
+                                            placeholder="End destination">
+                                    </div>
+                                </div>
+                                <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Min</th>
+                                                <th scope="col">Average</th>
+                                                <th scope="col">Max</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td ><%= data[0].min%></td>
+                                                <td ><%= data[0].max%></td>
+                                                <td ><%= data[0].avg%></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                            <button type="submit" class="btn btn-primary" >Check Price</button>
+                        </form>
+                    </div>
                     <form id="create-rides-form" method="POST" action="create_rides">
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -78,19 +113,19 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="price">Date</label>
+                                <label for="price">Price</label>
                                 <input type="number" class="form-control" id="price" name="price"
                                     placeholder="Set Price for the ride">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
                     </form>
-                    <a href="#0" class="btn btn-primary">Check Price</a>
                 </div>
             </div>
         </div>
     </div>
-
     <!--   Core JS Files   -->
     <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
     <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
@@ -106,6 +141,8 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
     <script src="assets/js/material-kit.js?v=2.0.5" type="text/javascript"></script>
+
+    
 </body>
 
 </html>
