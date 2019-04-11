@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- Material Kit CSS -->
   <link href="assets/css/material-kit.css?v=2.0.5" rel="stylesheet" />
-  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
 <body>
@@ -41,19 +41,19 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Profile</a>
           </li>
-        </ul>
-        <form class="form-inline ml-auto">
-            <div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Settings
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <li class="nav-item dropdown">
+              <form class="form-inline ml-auto" method="POST">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Setting
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" href="#">Passenger</a>
                   <a class="dropdown-item" href="#">Driver</a>
-                  <a class="dropdown-item" href="#">Logout</a>
-                </div>
+                  <button type="submit" class="dropdown-item" formaction="/logout">Logout</button>
               </div>
-        </form>
+              </form>
+            </li>
+        </ul>
       </div>
     </div>
   </nav>
