@@ -14,15 +14,6 @@ const pool = new Pool({
 	connectionString: process.env.DATABASE_URL
 });
 
-/*const client = pool.connect(function(error){
-    if(!error) {
-        console.log(error);
-    }
-    else {
-        console.log("Connected to database!");
-    }
-});*/
-
 router.get('/', function(req, res, next) {
     var bid_query = 'SELECT * FROM Bids';
     pool.query(bid_query, function(err, result) {
