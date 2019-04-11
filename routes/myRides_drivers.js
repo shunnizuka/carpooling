@@ -16,6 +16,7 @@ router.get('/', function(req, res, next) {
 	var sql_query = 'SELECT * FROM rides R WHERE EXISTS( SELECT * FROM vehicles V WHERE ' + "'" + username + "'" + ' = V.driverUserName AND V.plateNumber = R.ridePlateNumber);';
 	console.log(sql_query);
 	pool.query(sql_query, (err, data) => {
+
     res.render('myRides_drivers', { title: 'Drivers Rides', data: data.rows });
 	});
 });
