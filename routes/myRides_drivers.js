@@ -22,10 +22,10 @@ router.get('/', function(req, res, next) {
 });
 
 // POST to delete ride
-router.post('/', function(req, res) {
+router.post('/', function(req, res, next) {
     
     //retrieve info from the page
-    var rideId = req.body.rideId;
+    var rideId = req.body.rideid;
 
     //SQL query
 	var sql_query = 'DELETE FROM rides WHERE rideId = ' + "'" + rideId + "';";
