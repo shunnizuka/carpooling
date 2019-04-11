@@ -32,17 +32,25 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
     username = req.session.username;
-    phone = req.body.phone;
+    platenumber = req.body.platenumber;
+    carbrand = req.body.carbrand;
+    carmodel = req.body.carmodel;
+    carcolor = req.body.carcolor;
+    cartype = req.body.cartype;
 
     //Query
-    var edit_user_info = 'UPDATE users SET userphone =' + "('" + phone + "') where username= '" + username + "';";
+    var edit_car_info = 'UPDATE vehicles SET carbrand=' + "('" + carbrand + "'), carmodel=('" + carmodel + "'),"
+        + 'carcolour=' + "('" + carcolor + "')," + 'cartype=' + "('" + cartype + "') where driverusername='"
+        + username + "' AND platenumber='" + platenumber + "';"
 
-    pool.query(edit_user_info, (err, data) => {
+    console.log(edit_car_info);
+    pool.query(edit_car_info, (err, data) => {
         if (err) {
             console.log('error');
             res.redirect('/profile_driver');
         } else {
             res.redirect('/profile_driver');
+            console.log('success');
         }
     });
 })

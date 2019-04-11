@@ -32,17 +32,20 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
     username = req.session.username;
-    phone = req.body.phone;
+    platenumber = req.body.delplatenumber;
 
     //Query
-    var edit_user_info = 'UPDATE users SET userphone =' + "('" + phone + "') where username= '" + username + "';";
+    var delete_car = 'DELETE FROM vehicles WHERE driverusername='+ "'" + username + "'" 
+    + 'AND platenumber=' + "'" + platenumber + "';"; 
 
-    pool.query(edit_user_info, (err, data) => {
+    console.log(delete_car);
+    pool.query(delete_car, (err, data) => {
         if (err) {
             console.log('error');
             res.redirect('/profile_driver');
         } else {
             res.redirect('/profile_driver');
+            console.log('success');
         }
     });
 })

@@ -23,6 +23,9 @@ var create_rideRouter = require('./routes/create_rides');
 var profile_passengerRouter = require('./routes/profile_passenger');
 var profile_driverRouter = require('./routes/profile_driver');
 var update_ridesRourter = require('./routes/update_rides');
+var update_carRouter = require('./routes/update_car');
+var insert_carRouter = require('./routes/insert_car');
+var delete_carRouter = require('./routes/delete_car');
 /* ---------------------------- */
 
 /* --- FROM TEMPLATE --- */
@@ -78,6 +81,10 @@ app.use('/create_rides', create_rideRouter);
 app.use('/profile_passenger', profile_passengerRouter);
 app.use('/profile_driver', profile_driverRouter);
 app.use('/update_rides', update_ridesRourter);
+app.use('/update_car', update_carRouter);
+app.use('/insert_car', insert_carRouter);
+app.use('/delete_car', delete_carRouter);
+
 /* ---------------------------- */
 
 // catch 404 and forward to error handler
