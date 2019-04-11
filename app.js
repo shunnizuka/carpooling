@@ -17,6 +17,8 @@ var signup_passengerRouter = require('./routes/signup_passenger');
 var signup_driverRouter = require('./routes/signup_driver');
 var navbarRouter = require('./routes/navbar');
 var create_rideRouter = require('./routes/create_rides');
+var profile_passengerRouter = require('./routes/profile_passenger');
+var profile_driverRouter = require('./routes/profile_driver');
 /* ---------------------------- */
 
 /* --- FROM TEMPLATE --- */
@@ -66,6 +68,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/signup_passenger', signup_passengerRouter);
 app.use('/signup_driver', signup_driverRouter);
 app.use('/create_rides', create_rideRouter);
+app.use('/profile_passenger', profile_passengerRouter);
+app.use('/profile_driver', profile_driverRouter);
 /* ---------------------------- */
 
 // catch 404 and forward to error handler
