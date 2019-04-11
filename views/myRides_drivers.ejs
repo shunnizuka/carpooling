@@ -50,13 +50,23 @@
     <div class="container">
       <div class="card card-nav-tabs">
         <div class="card-header card-header-danger">
-          Edit or delete your rides
+          <strong>CHOOSE RIDE TO EDIT OR DELETE</strong>
         </div>
         <div class="card-body">
 
-            <form method="POST" action="myRides_drivers" >
-            <button class="btn btn-primary edit" type="submit">Edit</button>
-            <button class="btn btn-primary delete" type="submit">Delete</button>
+            <form id ="update-ride-form" method="POST" action="myRides_drivers">
+              <div class="form text-center">
+                  <div class="form-group">
+                      <label for="rideid">Ride ID</label>
+                      <input type="text" class="form-control" id="rideid" name="rideid"
+                          placeholder="Enter the ID of the ride you want to edit or delete">
+                  </div>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-primary edit" type="submit">Edit</button>
+                <button class="btn btn-primary delete" type="submit">Delete</button>
+              </div>
+            </form>
         </div>
       </div>
     </div>

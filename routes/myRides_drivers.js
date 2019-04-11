@@ -16,26 +16,28 @@ router.get('/', function(req, res, next) {
 	var sql_query = 'SELECT * FROM rides R WHERE EXISTS( SELECT * FROM vehicles V WHERE ' + "'" + username + "'" + ' = V.driverUserName AND V.plateNumber = R.ridePlateNumber);';
 	console.log(sql_query);
 	pool.query(sql_query, (err, data) => {
-		console.log(data);
     res.render('myRides_drivers', { title: 'Drivers Rides', data: data.rows });
 	});
 });
 
-// DELETE USER
+// POST to delete ride
 router.post('/', function(req, res) {
-    var ride = req.body.rideid;
-	
-	var sql_query = 'DELETE FROM rides WHERE rideId = ' + "'" + ride + "';";
-	pool.query(sql_query, (err, data) => {
-		console.log(sql_query);
+    
+    //retrieve info from the page
+    var rideId = req.body.rideId;
+
+    //SQL query
+	var sql_query = 'DELETE FROM rides WHERE rideId = ' + "'" + rideId + "';";
+    console.log(sql_query);
+    
+    pool.query(sql_query, (err, data) => {
             //if(err) throw err
             if (err) {
                 req.flash('error', err);
                 // redirect to users list page
                 res.redirect('/myRides_drivers');
             } else {
-				console.log(data);
-                req.flash('success', 'Ride deleted successfully! Ride Id = ' + req.body.rideid);
+                req.flash('success', 'Ride deleted successfully! Ride Id = ' + rideId);
                 // redirect to users list page
                 res.redirect('/myRides_drivers');
             }
