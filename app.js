@@ -16,6 +16,7 @@ var loginRouter = require('./routes/login');
 var signup_passengerRouter = require('./routes/signup_passenger');
 var signup_driverRouter = require('./routes/signup_driver');
 var navbarRouter = require('./routes/navbar');
+var myRidesDriversRouter = require('./routes/myRides_drivers')
 var bidsRouter = require('./routes/bids');
 var create_rideRouter = require('./routes/create_rides');
 /* ---------------------------- */
@@ -51,6 +52,7 @@ app.use(session({
 app.use('/home', homeRouter);
 app.use('/login', loginRouter);
 app.use('/navbar', navbarRouter);
+app.use('/myRides_drivers', myRidesDriversRouter)
 app.use('/bids', bidsRouter);
 /* ---------------------------- */
 

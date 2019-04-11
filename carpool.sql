@@ -111,8 +111,8 @@ VALUES ('12345678', 'Rohan', '7-seater', 'Toyota', '1234WWW', 'red'),
 
 INSERT INTO Rides (rideDate, rideTime, rideDestination, rideOrigin, rideCurrentPrice, ridePlateNumber)
 VALUES ('2019-11-11', current_time, 'Jalan Bukit Merah', 'NUS', 1, '44332211'),
- ('2019-12-11', current_time, 'NUS', 'Jalan Bukit Merah', 2, '87654321'),
-  ('2020-08-02', current_time, 'Sembawang', 'Punggol', 1, '11223344'),
-   ('2020-03-30', current_time, 'Punggol', 'NUS', 3, '12345678');
-
+('2019-12-11', current_time, 'NUS', 'Jalan Bukit Merah', 2, '87654321'),
+('2020-08-02', current_time, 'Sembawang', 'Punggol', 1, '11223344'),
+('2020-03-30', current_time, 'Punggol', 'NUS', 3, '12345678'),
+('2020-03-29', current_time, 'Punggol', 'NUS', 20, '12345678');
 
