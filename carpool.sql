@@ -50,8 +50,7 @@ create table Rides(
 	ridePlateNumber varchar(8) not null,
 	completed boolean default false,
 	primary key(rideId),
-	foreign key(ridePlateNumber) references Vehicles(plateNumber)
-	ON DELETE CASCADE
+	foreign key(ridePlateNumber) references Vehicles(plateNumber) ON DELETE CASCADE
 );
 
 create table Ratings(
@@ -69,17 +68,15 @@ create table Bids(
 	price float not null,
 	primary key(bidderName, rideId),
 	foreign key(bidderName) references Passengers(userName),
-	foreign key(rideId) references Rides(rideId),
+	foreign key(rideId) references Rides(rideId) ON DELETE CASCADE,
 	check (price > 0)
-	ON DELETE CASCADE
 );
 
 create table Preferences(
 	userName varchar(20) not null,
 	preferenceId varchar(20),
 	primary key(preferenceId, userName),
-	foreign key(userName) references Passengers(userName)
-	on delete cascade
+	foreign key(userName) references Passengers(userName) on delete cascade
 );
 
 create table PaymentMethod(

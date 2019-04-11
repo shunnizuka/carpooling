@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- Material Kit CSS -->
   <link href="assets/css/material-kit.css?v=2.0.5" rel="stylesheet" />
-  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
 <body>
@@ -39,7 +39,7 @@
             <a class="nav-link" href="#">MyRides</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/profile">Profile</a>
+            <a class="nav-link" href="/profile">Profile <span class="sr-only">(current)</span></a>
           </li>
         </ul>
       </div>
@@ -49,11 +49,23 @@
     <div class="container">
       <div class="card card-nav-tabs">
         <div class="card-header card-header-danger">
-          Set your destinations
+          <strong>Profile</strong>
         </div>
         <div class="card-body">
-          <h4 class="card-title">From ____ to ______</h4>
-          <a href="#0" class="btn btn-primary">Go somewhere</a>
+          <h4 class="card-title">Personal Information</h4>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>Name </td>
+                <td><%= data[0].username%></td>
+              </tr>
+              <tr>
+                <td>Phone</td>
+                <td><%= data[0].userphone%></td>
+              </tr>
+            </tbody>
+          </table>
+          <a href="#0" class="btn btn-primary">Edit</a>
         </div>
       </div>
     </div>
