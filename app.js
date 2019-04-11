@@ -16,11 +16,8 @@ var loginRouter = require('./routes/login');
 var signup_passengerRouter = require('./routes/signup_passenger');
 var signup_driverRouter = require('./routes/signup_driver');
 var navbarRouter = require('./routes/navbar');
-<<<<<<< HEAD
 var bidsRouter = require('./routes/bids');
-=======
 var create_rideRouter = require('./routes/create_rides');
->>>>>>> cc07ec9e9f1dbac51ecd440e91ff352ce620fd42
 /* ---------------------------- */
 
 /* --- FROM TEMPLATE --- */
