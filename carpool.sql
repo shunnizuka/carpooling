@@ -184,3 +184,47 @@ FOR EACH ROW
 WHEN ((NEW.rideDate < CURRENT_DATE)
 OR ((NEW.rideDate = CURRENT_DATE) AND (NEW.rideTime < CURRENT_TIME)))
 EXECUTE PROCEDURE update_rides_dateAndTime();
+
+/*CREATE OR REPLACE FUNCTION update_rides_checkTime()
+RETURNS TRIGGER AS
+$$
+DECLARE timeToCheck TIME;
+		dateToCheck DATE;
+BEGIN
+	SELECT R.rideTime INTO timeToCheck
+	FROM Rides R
+	WHERE R.rideId = NEW.rideId;
+	SELECT R.rideDate INTO dateToCheck
+	FROM Rides R
+	WHERE  R.rideId = NEW.rideId;
+	IF (CURRENT_DATE = dateToCheck AND (timeToCheck - CURRENT_TIME) <= INTERVAL '1:00') THEN RETURN NULL;
+		ELSE RETURN NEW;
+	END IF;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER update_rides_checkTime
+BEFORE INSERT OR UPDATE ON Bids
+FOR EACH ROW
+EXECUTE PROCEDURE update_rides_checkTime();
+*/
+CREATE OR REPLACE FUNCTION check_driver_ownBid()
+RETURNS TRIGGER AS
+$$
+DECLARE rideDriver VARCHAR(20);
+BEGIN
+	SELECT D.userName INTO rideDriver
+	FROM Rides R, Vehicles V, Drivers D
+	WHERE R.rideId = NEW.rideId AND R.ridePlateNumber = V.plateNumber AND V.driverUserName = D.userName;
+	IF NEW.bidderName = rideDriver THEN RETURN NULL;
+		ELSE RETURN NEW;
+	END IF;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER check_driver_ownBid
+BEFORE INSERT OR UPDATE ON Bids
+FOR EACH ROW
+EXECUTE PROCEDURE check_driver_ownBid();
