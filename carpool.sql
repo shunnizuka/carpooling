@@ -49,7 +49,6 @@ create table Rides(
 	rideCurrentPrice float not null,
 	rideAdvPrice float not null,
 	ridePlateNumber varchar(8) not null,
-	completed boolean default false,
 	primary key(rideId),
 	foreign key(ridePlateNumber) references Vehicles(plateNumber) ON DELETE CASCADE
 );

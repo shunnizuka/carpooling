@@ -76,6 +76,8 @@
 		<thead>
 			<tr>
 				<th scope="col">Ride ID</th>
+				<th scope="col">Driver Name</th>
+				<th scope="col">Rating</th>
 				<th scope="col">Origin</th>
 				<th scope="col">Destination</th>
 				<th scope="col">Date</th>
@@ -87,6 +89,8 @@
 			<% for(var i=0; i<data.length; i++) { %>
 			<tr>
 				<td ><%= data[i].rideid%></td>
+				<td ><%= data[i].username%></td>
+				<td ><%= data[i].rating%></td>
 				<td ><%= data[i].rideorigin%></td>
 				<td ><%= data[i].ridedestination%></td>
 				<td ><%= data[i].ridedate%></td>

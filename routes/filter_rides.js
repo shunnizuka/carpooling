@@ -17,7 +17,7 @@ const pool = new Pool({
 });
 
 // query to display all available rides
-var all_rides_query = 'SELECT * FROM rides WHERE ((rideDate > CURRENT_DATE) OR (rideDate = CURRENT_DATE AND rideTime > CURRENT_TIME)) ORDER BY rideCurrentPrice DESC;'
+var all_rides_query = 'SELECT * FROM ((Rides R JOIN Vehicles V on R.ridePlateNumber = V.plateNumber) JOIN Drivers D on V.driverUserName = D.userName) WHERE ((rideDate > CURRENT_DATE) OR (rideDate = CURRENT_DATE AND rideTime > CURRENT_TIME)) ORDER BY rideCurrentPrice DESC;'
 
 // GET
 router.get('/', function (req, res, next) {
