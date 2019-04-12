@@ -74,18 +74,18 @@ create table Bids(
 
 create table Preferences(
 	userName varchar(20) not null,
-	preferenceId integer not null,
+	prefPriority integer not null,
 	preference varchar(20) not null,
-	primary key(preferenceId, userName),
+	primary key(prefPriority, userName),
 	foreign key(userName) references Passengers(userName) on delete cascade
 );
 
 create table PaymentMethod(
 	userName varchar(20) not null,
-	cardNumber varchar(16) not null,
-	cardType varchar(20) not null,
-	cardCVI integer not null,
-	primary key(cardNumber),
+	cardNumber varchar(16),
+	cardType varchar(20),
+	cardCVI integer,
+	primary key(cardNumber, username),
 	foreign key(userName) references Passengers(userName)
 );
 
@@ -109,7 +109,8 @@ INSERT INTO Passengers(userName)
 VALUES ('Rohan'),
 ('Shune'),
 ('Bava'),
-('Beatrice');
+('Beatrice'),
+('Beesaycheese');
 
 INSERT INTO Vehicles(plateNumber, driverUserName, carType, carBrand, carModel, carColour)
 VALUES ('12345678', 'Rohan', '7-seater', 'Toyota', '1234WWW', 'red'),
@@ -137,11 +138,11 @@ VALUES ('Rohan', 1, 20.0),
 ('Bava', 4, 27.0),
 ('Beatrice', 4, 16.0);
 
-INSERT INTO Preferences (userName, preferenceId, preference) 
+INSERT INTO Preferences (userName, prefPriority, preference) 
 VALUES ('Rohan', 1, 'No smoking'),
 ('Beatrice', 1, 'Pet Friendly'),
-('Bava' , 1, 'Prefer Female Driver'),
-('Bava', 2, 'Pet Friendly');
+('Bava' , 2, 'Prefer Female Driver'),
+('Bava', 1, 'Pet Friendly');
 
 INSERT INTO PaymentMethod (username, cardNumber, cardType, cardCVI)
 VALUES ('Rohan', '2849402123774892', 'Visa', '990'),

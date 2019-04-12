@@ -35,12 +35,16 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
     username = req.session.username;
-    phone = req.body.phone;
+    cardnumber = req.body.cardnumber;
+    cardtype = req.body.cardtype;
+    cardcvi = req.body.cardcvi;
 
     //Query
-    var edit_user_info = 'UPDATE users SET userphone =' + "('" + phone + "') where username= '" + username + "';";
+    var add_card = 'INSERT INTO paymentmethod VALUES' + "('" + username + "','" + cardnumber 
+    + "','" + cardtype + "','" + cardcvi+ "');" ; 
 
-    pool.query(edit_user_info, (err, data) => {
+    pool.query(add_card, (err, data) => {
+        console.log(add_card);
         if (err) {
             console.log('error');
             res.redirect('/profile_passenger');
