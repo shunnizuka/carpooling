@@ -150,7 +150,6 @@ VALUES ('Rohan', '2849402123774892', 'Visa', '990'),
 ('Beatrice', '2794203488631352', 'MasterCard', '676'),
 ('Bava', '8935261784392071', 'Visa', '902');
 
-CREATE OR REPLACE FUNCTION check_bid()
 /* to prevent bidding for own rides and update max bid */
 CREATE OR REPLACE FUNCTION check_driver_ownBid()
 RETURNS TRIGGER AS
@@ -267,7 +266,6 @@ BEGIN
 END;
 $$
 LANGUAGE plpgsql;
-
 
 CREATE TRIGGER edit_card_replace
 BEFORE INSERT OR UPDATE ON PaymentMethod
