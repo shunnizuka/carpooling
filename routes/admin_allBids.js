@@ -8,49 +8,43 @@ const pool = new Pool({
 });
 
 router.get('/', function(req, res, next) {
-    var bid_query = 'SELECT * FROM Bids';
-    pool.query(bid_query, function(err, result) {
+    	
+	var username = req.session.username;
+
+	if(username != undefined) {
+		/* SQL Query */
+        var bid_query = 'SELECT * FROM Bids';
+        pool.query(bid_query, (err, data) => {
         console.log(bid_query)
-        if (err) {
-            console.log("undefined");
-            req.flash('error', err)
-            res.redirect('/admin_allBids');
-        }
-        else {
-            res.render('admin_allBids', { title: 'All Bids', result: result.rows});
-        }
-    });
-});
 
-// POST
-router.post('/', function (req, res, next) {
-
-	// Retrieve Information
-    var rideid = req.body.rideid;
-    console.log(rideid);
-    var newprice = req.body.newprice;
-    console.log(newprice);
-
-	// Construct Specific SQL Query
-	var update_bid_price = 'UPDATE bids SET price = ' + "('" + newprice + "')" + 'WHERE rideId = ' + rideid;
-
-	(async () => {
+        res.render('admin_allBids', { title: 'All Bids', data: data.rows });
+        });
+	} else {
+        res.redirect('/login');
+	}
 	
-		const client = await pool.connect()
-		//transaction to EDIT bids
-		try {
-			await client.query('BEGIN');
-			const { rows } = await client.query(update_bid_price);
-			await client.query('COMMIT');
-			res.redirect('/bids');
-		} catch (e) {
-			await client.query('ROLLBACK')
-			throw e
-		} finally {
-			client.release()
-		}
-	})().catch(e => console.error(e.stack))
-
 });
+
+// POST to delete ride
+router.post('/', function(req, res, next) {
+    
+    //retrieve info from the page
+    var rideId = req.body.rideid;
+    var username = req.body.biddername;
+
+    //SQL query
+	var sql_query = 'DELETE FROM bids B WHERE ' + "'" + username + "'" + ' = B.bidderName AND B.rideId = ' + "'" + rideId + "';";
+    console.log(sql_query);
+    
+    pool.query(sql_query, (err, data) => {
+            //if(err) throw err
+            if (err) {
+                // redirect to users list page
+                res.redirect('/admin_allBids');
+            } else {// redirect to users list page
+                res.redirect('/admin_allBids');
+            }
+        })
+   })
 
 module.exports = router;

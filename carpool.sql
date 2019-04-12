@@ -47,6 +47,7 @@ create table Rides(
 	rideDestination varchar(20) not null,
 	rideOrigin varchar(20) not null,
 	rideCurrentPrice float not null,
+	rideAdvPrice float not null,
 	ridePlateNumber varchar(8) not null,
 	completed boolean default false,
 	primary key(rideId),
@@ -116,11 +117,11 @@ VALUES ('12345678', 'Rohan', '7-seater', 'Toyota', '1234WWW', 'red'),
 ('11223344', 'Bava', '7-seater', 'Toyota', '1234YYY', 'red'),
 ('44332211', 'Beatrice', '7-seater', 'Toyota', '7654WWW', 'yellow');
 
-INSERT INTO Rides (rideDate, rideTime, rideDestination, rideOrigin, rideCurrentPrice, ridePlateNumber)
-VALUES ('11/11/2019', current_time, 'Jalan Bukit Merah', 'NUS', 25, '44332211'),
-('11/12/2019', current_time, 'NUS', 'Jalan Bukit Merah', 25, '87654321'),
-('28/02/2020', current_time, 'Sembawang', 'Punggol', 15, '11223344'),
-('30/03/2020', current_time, 'Punggol', 'NUS', 35, '12345678');
+INSERT INTO Rides (rideDate, rideTime, rideDestination, rideOrigin, rideCurrentPrice, rideAdvPrice, ridePlateNumber)
+VALUES ('11/11/2019', current_time, 'Jalan Bukit Merah', 'NUS', 25, 25, '44332211'),
+('11/12/2019', current_time, 'NUS', 'Jalan Bukit Merah', 25, 10, '87654321'),
+('28/02/2020', current_time, 'Sembawang', 'Punggol', 15, 5, '11223344'),
+('30/03/2020', current_time, 'Punggol', 'NUS', 35, 20, '12345678');
 
 INSERT INTO Bids (bidderName, rideId, price)
 VALUES ('Rohan', 1, 20.0),
@@ -231,3 +232,33 @@ CREATE TRIGGER check_driver_ownBid
 BEFORE INSERT OR UPDATE ON Bids
 FOR EACH ROW
 EXECUTE PROCEDURE check_driver_ownBid();
+
+CREATE OR REPLACE FUNCTION check_maxbid_onDelete()
+RETURNS TRIGGER AS
+$$
+DECLARE maxBid FLOAT;
+		advPrice FLOAT;
+BEGIN
+	SELECT max(B.price) INTO maxBid
+	FROM Bids B, Rides R
+	GROUP BY B.rideId
+	HAVING OLD.rideId = B.rideId;
+	
+	SELECT R.rideAdvPrice INTO advPrice
+	FROM Rides R
+	WHERE OLD.rideId = R.rideId;
+
+	IF (maxBid <= advPrice) THEN UPDATE Rides SET rideCurrentPrice = advPrice WHERE rideId = OLD.rideId;
+	ELSE UPDATE Rides SET rideCurrentPrice = maxBid WHERE rideId = OLD.rideId;
+	END IF;
+	RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER check_maxbid_onDelete
+AFTER DELETE ON Bids
+FOR EACH ROW
+EXECUTE PROCEDURE check_maxbid_onDelete();
+
+
