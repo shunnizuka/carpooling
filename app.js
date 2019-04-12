@@ -32,6 +32,8 @@ var edit_bidsRouter = require('./routes/edit_bids');
 var convert_driverRouter = require('./routes/convert_driver');
 var add_paymentcardRouter = require('./routes/add_paymentcard');
 var add_preferenceRouter = require('./routes/add_preference');
+var delete_preferenceRouter = require('./routes/delete_preference');
+var pricecheckerRouter = require('./routes/create_rides_pricechecker');
 
 /* ---------------------------- */
 
@@ -97,6 +99,8 @@ app.use('/edit_bids', edit_bidsRouter);
 app.use('/convert_driver', convert_driverRouter);
 app.use('/add_paymentcard', add_paymentcardRouter);
 app.use('/add_preference', add_preferenceRouter);
+app.use('/delete_preference', delete_preferenceRouter);
+app.use('/create_rides_pricechecker', pricecheckerRouter);
 
 /* ---------------------------- */
 

@@ -77,7 +77,7 @@ create table Preferences(
 	userName varchar(20) not null,
 	prefPriority integer not null,
 	preference varchar(20) not null,
-	primary key(prefPriority, userName),
+	primary key(prefPriority, userName, preference),
 	foreign key(userName) references Passengers(userName) on delete cascade
 );
 
@@ -274,4 +274,23 @@ AFTER DELETE ON Bids
 FOR EACH ROW
 EXECUTE PROCEDURE check_maxbid_onDelete();
 
+CREATE OR REPLACE FUNCTION delete_vehicle_check()
+RETURNS TRIGGER AS
+$$
+BEGIN
+	IF 
+	(SELECT COUNT(*) 
+	FROM Vehicles 
+	GROUP BY driverUserName
+	HAVING OLD.driverUserName = driverUserName) = 1
+	THEN RETURN NULL;
+	ELSE RETURN NEW;
+	END IF;
+END;
+$$
+LANGUAGE plpgsql;
 
+CREATE TRIGGER delete_vehicle_check
+BEFORE DELETE ON Vehicles
+FOR EACH ROW
+EXECUTE PROCEDURE delete_vehicle_check();

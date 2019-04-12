@@ -44,6 +44,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Profile</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <form class="form-inline ml-auto" method="POST">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Setting
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <button type="submit" class="dropdown-item" formaction="/logout">Logout</button>
+                            </div>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -64,14 +75,16 @@
                             </div>
                         </div>
                         <div class="text-center">
-                                <tbody>
-                                    <tr>    
-                                            <td>
-                                                <a href="" class="btn btn-primary delete" data-toggle="modal" data-target="#modalLoginForm">Edit</a>
-                                                <a class="btn btn-danger delete" onclick="return alert('Are You sure?')" href="/bids">Delete</a>
-                                            </td>
-                                    </tr> 
-                                    </tbody>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <a href="" class="btn btn-primary delete" data-toggle="modal"
+                                            data-target="#modalLoginForm">Edit</a>
+                                        <a class="btn btn-danger delete" onclick="return alert('Are You sure?')"
+                                            href="/bids">Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </div>
                     </form>
                 </div>
@@ -98,31 +111,32 @@
         </table>
 
         <!-- edit modal-->>
-    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Edit Bid</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body mx-3">
-                <form class="md-form mb-5" method="POST" action="bids">
-                    <i class="fas fa-envelope prefix grey-text"></i>
-                    <input type="number" id="id" name="rideid" class="form-control validate">
-                    <label data-error="wrong" data-success="right" for="defaultForm-email">Re-enter Ride ID</label>
-                    <input type="number" id="newprice" name = "newprice" class="form-control validate">
-                    <label data-error="wrong" data-success="right" for="defaultForm-email">New Bid Price</label>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button type="submit" class="btn btn-default">Submit New Bid</button>
+        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Edit Bid</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </form>
+                    <div class="modal-body mx-3">
+                        <form class="md-form mb-5" method="POST" action="bids">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <input type="number" id="id" name="rideid" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="defaultForm-email">Re-enter Ride
+                                ID</label>
+                            <input type="number" id="newprice" name="newprice" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="defaultForm-email">New Bid Price</label>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button type="submit" class="btn btn-default">Submit New Bid</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
     </div>
 </body>
 
