@@ -87,7 +87,7 @@ create table PaymentMethod(
 	cardType varchar(20) not null,
 	cardCVI integer not null,
 	primary key(cardNumber),
-	foreign key(userName) references Passengers(userName)
+	foreign key(userName) references Passengers(userName) on delete cascade
 );
 
 INSERT INTO Users (userName, userPhone, userPassword)
@@ -150,7 +150,7 @@ VALUES ('Rohan', '2849402123774892', 'Visa', '990'),
 ('Beatrice', '2794203488631352', 'MasterCard', '676'),
 ('Bava', '8935261784392071', 'Visa', '902');
 
-CREATE OR REPLACE FUNCTION check_bid()
+
 /* to prevent bidding for own rides and update max bid */
 CREATE OR REPLACE FUNCTION check_driver_ownBid()
 RETURNS TRIGGER AS
@@ -250,6 +250,36 @@ CREATE TRIGGER check_maxbid_onDelete
 AFTER DELETE ON Bids
 FOR EACH ROW
 EXECUTE PROCEDURE check_maxbid_onDelete();
+
+
+CREATE OR REPLACE FUNCTION check_maxbid_onDelete_User()
+RETURNS TRIGGER AS
+$$
+DECLARE maxBid FLOAT;
+		advPrice FLOAT;
+BEGIN
+	SELECT max(B.price) INTO maxBid
+	FROM Bids B, Rides R
+	GROUP BY B.bidderName
+	HAVING OLD.userName = B.bidderName;
+	
+	SELECT R.rideAdvPrice INTO advPrice
+	FROM Rides R join Vehicles V
+	ON R.ridePlateNumber = V.plateNumber
+	WHERE OLD.userName = V.driverUserName;
+
+	IF (maxBid <= advPrice) THEN UPDATE Rides SET rideCurrentPrice = advPrice WHERE userName = OLD.userName;
+	ELSE UPDATE Rides SET rideCurrentPrice = maxBid WHERE userName = OLD.userName;
+	END IF;
+	RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+	       
+CREATE TRIGGER check_maxbid_onDelete_User
+AFTER DELETE ON Users
+FOR EACH ROW
+EXECUTE PROCEDURE check_maxbid_onDelete_User();
 
 CREATE OR REPLACE FUNCTION edit_card_replace()
 RETURNS TRIGGER AS
