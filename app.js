@@ -27,8 +27,11 @@ var update_carRouter = require('./routes/update_car');
 var insert_carRouter = require('./routes/insert_car');
 var delete_carRouter = require('./routes/delete_car');
 var logoutRouter = require('./routes/logout');
+var update_bidsRouter = require('./routes/update_bids');
+var edit_bidsRouter = require('./routes/edit_bids');
 var convert_driverRouter = require('./routes/convert_driver');
 var add_paymentcardRouter = require('./routes/add_paymentcard');
+
 /* ---------------------------- */
 
 /* --- FROM TEMPLATE --- */
@@ -88,6 +91,8 @@ app.use('/update_car', update_carRouter);
 app.use('/insert_car', insert_carRouter);
 app.use('/delete_car', delete_carRouter);
 app.use('/logout', logoutRouter);
+app.use('/update_bids', update_bidsRouter);
+app.use('/edit_bids', edit_bidsRouter);
 app.use('/convert_driver', convert_driverRouter);
 app.use('/add_paymentcard', add_paymentcardRouter);
 
