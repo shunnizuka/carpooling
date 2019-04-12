@@ -35,6 +35,7 @@ router.post('/', function(req, res, next) {
 	// Construct Specific SQL Query
 	var insert_query_users = 'INSERT INTO users VALUES' + "('" + username + "','" + phone + "','" + password + "')";
 	var insert_query_drivers = 'INSERT INTO drivers VALUES' + "('" + username + "')";
+	var insert_query_passengers = 'INSERT INTO passengers VALUES' + "('" + username + "')";
 	var insert_query_vehicles = 'INSERT INTO vehicles VALUES' + "('" + platenumber + "','" + username + "','" 
 	+ cartype + "','" + carbrand + "','" + carmodel + "','" + carcolor + "')";
 
@@ -50,6 +51,7 @@ router.post('/', function(req, res, next) {
 			const { rows } = await client.query(insert_query_users);
 			await client.query(insert_query_drivers);
 			await client.query(insert_query_vehicles);
+			await client.query(insert_query_passengers);
 			await client.query('COMMIT');
 			res.redirect('/login');
 		} catch (e) {

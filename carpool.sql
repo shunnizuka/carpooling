@@ -266,7 +266,6 @@ END;
 $$
 LANGUAGE plpgsql;
 
-
 CREATE TRIGGER edit_card_replace
 BEFORE INSERT OR UPDATE ON PaymentMethod
 FOR EACH ROW
