@@ -18,7 +18,6 @@ var signup_driverRouter = require('./routes/signup_driver');
 var navbarRouter = require('./routes/navbar');
 var filter_ridesRouter = require('./routes/filter_rides');
 var myRidesDriversRouter = require('./routes/myRides_drivers')
-var bidsRouter = require('./routes/bids');
 var create_rideRouter = require('./routes/create_rides');
 var profile_passengerRouter = require('./routes/profile_passenger');
 var profile_driverRouter = require('./routes/profile_driver');
@@ -39,13 +38,12 @@ var admin_createRideRouter = require('./routes/admin_create_ride');
 var admin_updateRideRouter = require('./routes/admin_update_ride');
 var admin_createBidRouter = require('./routes/admin_create_bid');
 var admin_updateBidRouter = require('./routes/admin_update_bid');
+var admin_updateUserRouter = require('./routes/admin_update_user');
 
 /* ---------------------------- */
 
 /* --- FROM TEMPLATE --- */
-var tableRouter = require('./routes/table');
 var loopsRouter = require('./routes/loops');
-var selectRouter = require('./routes/select');
 /* ---------------------------- */
 
 var app = express();
@@ -74,13 +72,10 @@ app.use('/home', homeRouter);
 app.use('/login', loginRouter);
 app.use('/navbar', navbarRouter);
 app.use('/myRides_drivers', myRidesDriversRouter)
-app.use('/bids', bidsRouter);
 /* ---------------------------- */
 
 /* --- FROM TEMPLATE --- */
-app.use('/table', tableRouter);
 app.use('/loops', loopsRouter);
-app.use('/select', selectRouter);
 /* ---------------------------- */
 
 /* --- Modify Database  --- */
@@ -111,6 +106,8 @@ app.use('/admin_create_ride', admin_createRideRouter);
 app.use('/admin_update_ride', admin_updateRideRouter);
 app.use('/admin_create_bid', admin_createBidRouter);
 app.use('/admin_update_bid', admin_updateBidRouter);
+app.use('/admin_update_user', admin_updateUserRouter);
+
 /* ---------------------------- */
 
 // catch 404 and forward to error handler

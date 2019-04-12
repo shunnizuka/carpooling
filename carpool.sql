@@ -19,14 +19,14 @@ create table Users(
 create table Passengers(
 	userName varchar(20) not null,
 	primary key(userName),
-	foreign key(userName) references Users(userName)
+	foreign key(userName) references Users(userName) ON DELETE CASCADE
 );
 
 create table Drivers(
 	userName varchar(20) not null,
 	rating integer default 0,
 	primary key(userName),
-	foreign key(userName) references Users(userName)
+	foreign key(userName) references Users(userName) ON DELETE CASCADE
 );
 
 create table Vehicles(
@@ -37,7 +37,7 @@ create table Vehicles(
 	carModel varchar(20) not null,
 	carColour varchar(20) not null,
 	primary key(plateNumber),
-	foreign key(driverUserName) references Drivers(userName)
+	foreign key(driverUserName) references Drivers(userName) ON DELETE CASCADE
 );
 
 create table Rides(
@@ -60,7 +60,7 @@ create table Ratings(
 	score integer,
 	primary key(rideID),
 	foreign key(rideId) references Rides(rideId),
-	foreign key(userName) references Drivers(userName)
+	foreign key(userName) references Drivers(userName) ON DELETE CASCADE
 );
 
 create table Bids(
@@ -68,7 +68,7 @@ create table Bids(
 	rideId integer,
 	price float not null,
 	primary key(bidderName, rideId),
-	foreign key(bidderName) references Passengers(userName),
+	foreign key(bidderName) references Passengers(userName) ON DELETE CASCADE,
 	foreign key(rideId) references Rides(rideId) ON DELETE CASCADE,
 	check (price > 0)
 );
