@@ -44,6 +44,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/profile_passenger">Profile</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <form class="form-inline ml-auto" method="POST">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Setting
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <button type="submit" class="dropdown-item" formaction="/logout">Logout</button>
+                            </div>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -114,8 +125,7 @@
                         <input type="number" step="0.01" id="newprice" name="newprice" class="form-control validate">
                         <label data-error="wrong" data-success="right" for="defaultForm-email">New Price</label>
                         <div class="modal-footer d-flex justify-content-center">
-                            <button type="submit" formaction="/edit_bids" class="btn btn-default">Submit Adjusted
-                                Ride</button>
+                            <button type="submit" formaction="/edit_bids" class="btn btn-default">Submit new bid</button>
                         </div>
                     </form>
                 </div>

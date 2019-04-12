@@ -34,12 +34,22 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="/create_rides">Createride </a>
-                      </li>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/myRides_drivers">MyRides</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
+                    <li class="nav-item dropdown">
+                        <form class="form-inline ml-auto" method="POST">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Setting
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <button type="submit" class="dropdown-item" formaction="/logout">Logout</button>
+                            </div>
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -66,6 +76,8 @@
                             <tr>
                                 <td><Strong>Name</Strong></td>
                                 <td><%= data[0].username%></td>
+                                <td><Strong>Rating</Strong></td>
+                                <td><%= data[0].rating%></td>
                             </tr>
                             <tr>
                                 <td><Strong>Phone</Strong></td>
@@ -112,8 +124,9 @@
                             <% } %>
                         </tbody>
                     </table>
-                    <form method="POST" action="profile_passenger">    
-                        <button type="submit" formaction="/profile_passenger" class="btn btn-primary float-right">Switch to passenger</button>
+                    <form method="POST" action="profile_passenger">
+                        <button type="submit" formaction="/profile_passenger" class="btn btn-primary float-right">Switch
+                            to passenger</button>
                     </form>
                 </div>
             </div>
@@ -245,9 +258,10 @@
                         <i class="material-icons">clear</i>
                     </button>
                     <form method="POST" action="delete_car">
-                        <div class="modal-title"><strong>Enter the plate number of the car you want to delete</strong></div>
-                        <input type="text" id="delplatenumber" name="delplatenumber" minlength="8" maxlength="8" class="form-control"
-                            placeholder="Car platenumber..">
+                        <div class="modal-title"><strong>Enter the plate number of the car you want to delete</strong>
+                        </div>
+                        <input type="text" id="delplatenumber" name="delplatenumber" minlength="8" maxlength="8"
+                            class="form-control" placeholder="Car platenumber..">
                         <button type="submit" class="btn btn-primary btn-round">Delete</button>
                     </form>
                 </div>

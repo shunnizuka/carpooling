@@ -75,8 +75,9 @@ create table Bids(
 
 create table Preferences(
 	userName varchar(20) not null,
-	preferenceId varchar(20),
-	primary key(preferenceId, userName),
+	prefPriority integer not null,
+	preference varchar(20) not null,
+	primary key(prefPriority, userName, preference),
 	foreign key(userName) references Passengers(userName) on delete cascade
 );
 
@@ -109,7 +110,8 @@ INSERT INTO Passengers(userName)
 VALUES ('Rohan'),
 ('Shune'),
 ('Bava'),
-('Beatrice');
+('Beatrice'),
+('Beesaycheese');
 
 INSERT INTO Vehicles(plateNumber, driverUserName, carType, carBrand, carModel, carColour)
 VALUES ('12345678', 'Rohan', '7-seater', 'Toyota', '1234WWW', 'red'),
@@ -137,6 +139,18 @@ VALUES ('Rohan', 1, 20.0),
 ('Bava', 4, 27.0),
 ('Beatrice', 4, 16.0);
 
+INSERT INTO Preferences (userName, prefPriority, preference) 
+VALUES ('Rohan', 1, 'No smoking'),
+('Beatrice', 1, 'Pet Friendly'),
+('Bava' , 2, 'Prefer Female Driver'),
+('Bava', 1, 'Pet Friendly');
+
+INSERT INTO PaymentMethod (username, cardNumber, cardType, cardCVI)
+VALUES ('Rohan', '2849402123774892', 'Visa', '990'),
+('Beatrice', '2794203488631352', 'MasterCard', '676'),
+('Bava', '8935261784392071', 'Visa', '902');
+
+CREATE OR REPLACE FUNCTION check_bid()
 /* to prevent bidding for own rides and update max bid */
 CREATE OR REPLACE FUNCTION check_driver_ownBid()
 RETURNS TRIGGER AS
