@@ -46,9 +46,6 @@ var admin_updateUserRouter = require('./routes/admin_update_user');
 
 /* ---------------------------- */
 
-/* --- FROM TEMPLATE --- */
-var loopsRouter = require('./routes/loops');
-/* ---------------------------- */
 
 var app = express();
 
