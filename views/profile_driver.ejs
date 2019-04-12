@@ -33,9 +33,6 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/filter_rides">Findride </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="/create_rides">Createride </a>
                       </li>
                     <li class="nav-item">
@@ -115,6 +112,9 @@
                             <% } %>
                         </tbody>
                     </table>
+                    <form method="POST" action="profile_passenger">    
+                        <button type="submit" formaction="/profile_passenger" class="btn btn-primary float-right">Switch to passenger</button>
+                    </form>
                 </div>
             </div>
         </div>
