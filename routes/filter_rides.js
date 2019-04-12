@@ -17,7 +17,7 @@ const pool = new Pool({
 });
 
 // query to display all available rides
-var all_rides_query = 'SELECT * FROM rides WHERE rideTime > CURRENT_TIME ORDER BY rideCurrentPrice DESC;'
+var all_rides_query = 'SELECT * FROM rides WHERE ((rideDate > CURRENT_DATE) OR (rideDate = CURRENT_DATE AND rideTime > CURRENT_TIME)) ORDER BY rideCurrentPrice DESC;'
 
 // GET
 router.get('/', function (req, res, next) {
@@ -47,7 +47,7 @@ router.post('/', function(req, res, next) {
 	if (origin != undefined & destination != undefined) {
 	  // Construct specific SQL Query
     var filter_query_rides = 'SELECT * FROM rides WHERE rideOrigin = ' + "'" + origin + "'" + ' AND rideDestination = '  
-    + "'" + destination + "'" + ' AND rideTime > CURRENT_TIME ORDER BY rideCurrentPrice DESC;';
+    + "'" + destination + "'" + ' AND ((rideDate > CURRENT_DATE) OR (rideDate = CURRENT_DATE AND rideTime > CURRENT_TIME)) ORDER BY rideCurrentPrice DESC;';
     console.log(filter_query_rides);
     
     pool.query(filter_query_rides, (err, data) => {
