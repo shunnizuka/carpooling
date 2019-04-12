@@ -31,6 +31,7 @@ var update_bidsRouter = require('./routes/update_bids');
 var edit_bidsRouter = require('./routes/edit_bids');
 var convert_driverRouter = require('./routes/convert_driver');
 var add_paymentcardRouter = require('./routes/add_paymentcard');
+var add_preferenceRouter = require('./routes/add_preference');
 
 /* ---------------------------- */
 
@@ -95,6 +96,7 @@ app.use('/update_bids', update_bidsRouter);
 app.use('/edit_bids', edit_bidsRouter);
 app.use('/convert_driver', convert_driverRouter);
 app.use('/add_paymentcard', add_paymentcardRouter);
+app.use('/add_preference', add_preferenceRouter);
 
 /* ---------------------------- */
 
