@@ -24,7 +24,7 @@ create table Passengers(
 
 create table Drivers(
 	userName varchar(20) not null,
-	rating integer,
+	rating integer default 0,
 	primary key(userName),
 	foreign key(userName) references Users(userName)
 );
