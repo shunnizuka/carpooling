@@ -36,7 +36,7 @@ router.post('/', function(req, res, next) {
 	var insert_query_users = 'INSERT INTO users VALUES' + "('" + username + "','" + phone + "','" + password + "')";
 	var insert_query_drivers = 'INSERT INTO drivers VALUES' + "('" + username + "')";
 	var insert_query_vehicles = 'INSERT INTO vehicles VALUES' + "('" + platenumber + "','" + username + "','" 
-	+ cartype + "','" + carbrand + "','" + carmodel + "','" + carmodel + "')";
+	+ cartype + "','" + carbrand + "','" + carmodel + "','" + carcolor + "')";
 
 	console.log(insert_query_drivers);
 	console.log(insert_query_users);
