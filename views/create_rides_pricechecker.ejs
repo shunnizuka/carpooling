@@ -32,15 +32,25 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-						<a class="nav-link" href="#">Createride <span class="sr-only">(current)</span></a>
-					</li>  
-          			<li class="nav-item">
-            			<a class="nav-link" href="/myRides_drivers">MyRides</a>
-          			</li>
-          			<li class="nav-item">
-            			<a class="nav-link" href="/profile_driver">Profile</a>
-          			</li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Createride <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/myRides_drivers">MyRides</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile_driver">Profile</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <form class="form-inline ml-auto" method="POST">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Setting
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <button type="submit" class="dropdown-item" formaction="/logout">Logout</button>
+                            </div>
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -54,38 +64,38 @@
                 </div>
                 <div class="card-body">
                     <div class="card">
-                        <form id="check-price-form" method="POST" action="create_rides" class="card-body">
+                        <form id="check-price-form" method="POST" action="create_rides_pricechecker" class="card-body">
                             <h4 class="card-title">Check Current Price</h4>
                             <p class="card-text">Input origin and destination to check current prevalent price</p>
                             <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="originPrice">Origin</label>
-                                        <input type="text" class="form-control" id="originPrice" name="originPrice"
-                                            placeholder="Start destination">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="destinationPrice">Destination</label>
-                                        <input type="text" class="form-control" id="destinationPrice" name="destinationPrice"
-                                            placeholder="End destination">
-                                    </div>
+                                <div class="form-group col-md-6">
+                                    <label for="originPrice">Origin</label>
+                                    <input type="text" class="form-control" id="originPrice" name="originPrice"
+                                        placeholder="Start destination">
                                 </div>
-                                <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Min</th>
-                                                <th scope="col">Average</th>
-                                                <th scope="col">Max</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td ><%= data[0].min%></td>
-                                                <td ><%= data[0].max%></td>
-                                                <td ><%= data[0].avg%></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                            <button type="submit" class="btn btn-primary" >Check Price</button>
+                                <div class="form-group col-md-6">
+                                    <label for="destinationPrice">Destination</label>
+                                    <input type="text" class="form-control" id="destinationPrice"
+                                        name="destinationPrice" placeholder="End destination">
+                                </div>
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Min</th>
+                                        <th scope="col">Average</th>
+                                        <th scope="col">Max</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><%= data[0].min%></td>
+                                        <td><%= data[0].max%></td>
+                                        <td><%= data[0].avg%></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-primary">Check Price</button>
                         </form>
                     </div>
                     <form id="create-rides-form" method="POST" action="create_rides">
@@ -143,7 +153,7 @@
     <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
     <script src="assets/js/material-kit.js?v=2.0.5" type="text/javascript"></script>
 
-    
+
 </body>
 
 </html>

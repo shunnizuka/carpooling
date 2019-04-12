@@ -15,7 +15,6 @@ var homeRouter = require('./routes/home');
 var loginRouter = require('./routes/login');
 var signup_passengerRouter = require('./routes/signup_passenger');
 var signup_driverRouter = require('./routes/signup_driver');
-var navbarRouter = require('./routes/navbar');
 var filter_ridesRouter = require('./routes/filter_rides');
 var myRidesDriversRouter = require('./routes/myRides_drivers')
 var create_rideRouter = require('./routes/create_rides');
@@ -29,6 +28,11 @@ var logoutRouter = require('./routes/logout');
 var update_bidsRouter = require('./routes/update_bids');
 var edit_bidsRouter = require('./routes/edit_bids');
 var convert_driverRouter = require('./routes/convert_driver');
+var add_paymentcardRouter = require('./routes/add_paymentcard');
+var add_preferenceRouter = require('./routes/add_preference');
+var delete_preferenceRouter = require('./routes/delete_preference');
+var pricecheckerRouter = require('./routes/create_rides_pricechecker');
+var rate_ridesRouter = require('./routes/rate_rides');
 
 var admin_allRideRouter = require('./routes/admin_allRides');
 var admin_allUserRouter = require('./routes/admin_allUsers');
@@ -70,12 +74,7 @@ app.use(session({
 /* --- FOR CARPOOLING    --- */
 app.use('/home', homeRouter);
 app.use('/login', loginRouter);
-app.use('/navbar', navbarRouter);
 app.use('/myRides_drivers', myRidesDriversRouter)
-/* ---------------------------- */
-
-/* --- FROM TEMPLATE --- */
-app.use('/loops', loopsRouter);
 /* ---------------------------- */
 
 /* --- Modify Database  --- */
@@ -97,6 +96,11 @@ app.use('/logout', logoutRouter);
 app.use('/update_bids', update_bidsRouter);
 app.use('/edit_bids', edit_bidsRouter);
 app.use('/convert_driver', convert_driverRouter);
+app.use('/add_paymentcard', add_paymentcardRouter);
+app.use('/add_preference', add_preferenceRouter);
+app.use('/delete_preference', delete_preferenceRouter);
+app.use('/create_rides_pricechecker', pricecheckerRouter);
+app.use('/rate_rides', rate_ridesRouter);
 
 app.use('/admin_allRides', admin_allRideRouter);
 app.use('/admin_allUsers', admin_allUserRouter);
