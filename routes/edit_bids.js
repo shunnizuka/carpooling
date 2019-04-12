@@ -47,11 +47,10 @@ router.post('/', function (req, res, next) {
             if (err) {
                 console.log("error");
             } else {
-                res.render('update_bids', { title: 'Pending Rides', result: result.rows });
+                res.redirect('/update_bids');
             }
         });
     }
-    
 });
 
 module.exports = router;
