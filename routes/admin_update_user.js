@@ -9,7 +9,6 @@ const pool = new Pool({
 
 // query to display all available rides
 var all_users_query = 'SELECT DISTINCT U.username, userphone, rating FROM users U FULL OUTER JOIN drivers D ON D.username = U.username;'
-var all_drivers_query = ' SELECT userName, userPhone, rating From drivers U NATURAL JOIN users D WHERE U.userName = D.userName;'
 
 // GET
 router.get('/', function (req, res, next) {
@@ -26,25 +25,26 @@ router.get('/', function (req, res, next) {
 	}
 });
 
-
-// POST to delete user
+// POST
 router.post('/', function (req, res, next) {
 
-	//retrieve info from the page
+	// Retrieve Information
 	var username = req.body.username;
+    var newphone = req.body.newphone;
+    var newpassword = req.body.newpassword;
 
-	//SQL query
-	var sql_query = 'DELETE FROM users U WHERE ' + "'" + username + "'" + ' = U.userName;';
-	console.log(sql_query);
+   // Construct specific SQL Query
+   var insert_query_users = 'UPDATE users SET userphone = ' + "('" + newphone + "'), userpassword = "+ "('" + newpassword + "') WHERE userName = '" + username + "';";
+   pool.query(insert_query_users, (err, data) => {
+	 if (err) {
+	   console.log("error");
+	   res.redirect('/admin_allUsers');
+	 } else {
+	   res.redirect('/admin_allUsers');
+	   console.log("success");
+	 }
+   });
 
-	pool.query(sql_query, (err, data) => {
-		//if(err) throw err
-		if (err) {
-			res.redirect('/admin_allUsers');
-		} else {
-			res.redirect('/admin_allUsers');
-		}
-	})
-})
+});
 
 module.exports = router;
