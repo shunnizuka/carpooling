@@ -146,8 +146,7 @@ BEGIN
 	FROM Rides R
 	WHERE R.rideId = NEW.rideId;
 	IF NEW.price <= maxBid THEN RETURN NULL;
-		ELSE 
-		PERFORM update_rides_maxPrice(NEW.rideId, NEW.price);
+		ELSE UPDATE Rides SET rideCurrentPrice = NEW.price WHERE rideId = NEW.rideId;
 		RETURN NEW;
 	END IF;
 END;
@@ -159,7 +158,7 @@ BEFORE INSERT OR UPDATE ON Bids
 FOR EACH ROW
 EXECUTE PROCEDURE check_bid();
 
-CREATE OR REPLACE FUNCTION update_rides_maxPrice
+/*CREATE OR REPLACE FUNCTION update_rides_maxPrice
 (r_id INTEGER, price FLOAT)
 RETURNS void
 AS
@@ -170,7 +169,7 @@ BEGIN
 	WHERE r_id = rideId;
 END
 $$
-LANGUAGE plpgsql;
+LANGUAGE plpgsql;*/
 
 CREATE OR REPLACE FUNCTION update_rides_dateAndTime()
 RETURNS TRIGGER AS
