@@ -28,6 +28,10 @@ var insert_carRouter = require('./routes/insert_car');
 var delete_carRouter = require('./routes/delete_car');
 var logoutRouter = require('./routes/logout');
 var convert_driverRouter = require('./routes/convert_driver');
+
+var admin_allRideRouter = require('./routes/admin_allRides');
+var admin_allUserRouter = require('./routes/admin_allUsers');
+var admin_allBidRouter = require('./routes/admin_allBids');
 /* ---------------------------- */
 
 /* --- FROM TEMPLATE --- */
@@ -89,6 +93,9 @@ app.use('/delete_car', delete_carRouter);
 app.use('/logout', logoutRouter);
 app.use('/convert_driver', convert_driverRouter);
 
+app.use('/admin_allRides', admin_allRideRouter);
+app.use('/admin_allUsers', admin_allUserRouter);
+app.use('/admin_allBids', admin_allBidRouter);
 /* ---------------------------- */
 
 // catch 404 and forward to error handler

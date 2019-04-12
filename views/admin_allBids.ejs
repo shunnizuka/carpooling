@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Available Rides</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- Material Kit CSS -->
+  <link href="assets/css/material-kit.css?v=2.0.5" rel="stylesheet" />
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+
+<body>
+    <!--can change color by changing the bg-danger-->
+	<nav class="navbar fixed-top navbar-expand-lg bg-danger" color-on-scroll="100">
+            <div class="container">
+                  <div class="navbar-translate">
+                    <a class="navbar-brand" href="#">GrabCab</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
+                          aria-label="Toggle navigation">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="navbar-toggler-icon"></span>
+                          <span class="navbar-toggler-icon"></span>
+                          <span class="navbar-toggler-icon"></span>
+                    </button>
+                  </div>
+                  <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+                          <li class="nav-item active">
+                            <a class="nav-link" href="/admin_allRides">AllRides </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin_allBids">AllBids</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">AllUsers <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                  </div>
+            </div>
+          </nav>
+
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name of Bidder</th>
+                <th scope="col">Ride ID</th>
+                <th scope="col">Price</th>
+                <th width="200px">Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i=0; i<result.length; i++) { %>
+            <tr>
+                <td><%= result[i].biddername%></td>
+                <td><%= result[i].rideid%></td>
+                <td><%= result[i].price%></td>
+                <td>
+                    <a href="" class="btn btn-primary delete" data-toggle="modal" data-target="#modalLoginForm">Edit</a>
+                    <a class="btn btn-danger delete" onclick="return alert('Are You sure?')" href="/bids">Delete</a>
+                </td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+    <!-- edit modal-->>
+    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Edit Bid</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <form class="md-form mb-5" method="POST" action="bids">
+                        <i class="fas fa-envelope prefix grey-text"></i>
+                        <input type="number" id="id" name="rideid" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="defaultForm-email">Re-enter Ride ID</label>
+                        <input type="number" id="newprice" name = "newprice" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="defaultForm-email">New Bid Price</label>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="submit" class="btn btn-default">Submit New Bid</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
