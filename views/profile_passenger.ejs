@@ -21,7 +21,7 @@
   <nav class="navbar fixed-top navbar-expand-lg bg-danger" color-on-scroll="100">
     <div class="container">
       <div class="navbar-translate">
-        <a class="navbar-brand" href="/navbar">App Name </a>
+        <a class="navbar-brand" href="/navbar"><strong>GrabCab</strong></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
           aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
@@ -44,6 +44,17 @@
           <li class="nav-item">
             <a class="nav-link" href="/profile_passenger">Profile <span class="sr-only">(current)</span></a>
           </li>
+          <li class="nav-item dropdown">
+            <form class="form-inline ml-auto" method="POST">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Setting
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <button type="submit" class="dropdown-item" formaction="/logout">Logout</button>
+              </div>
+            </form>
+          </li>
         </ul>
       </div>
     </div>
@@ -55,7 +66,15 @@
           <strong>Profile</strong>
         </div>
         <div class="card-body">
-          <h4 class="card-title">Personal Information</h4>
+          <div class="form-row">
+            <div class="col-md-2.5">
+              <h4 class="card-title">Personal Information</h4>
+            </div>
+            <div class="col-md-6">
+              <button type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#editPersonalInfoModal">Edit</button>
+            </div>
+          </div>
           <table class="table">
             <tbody>
               <tr>
@@ -67,89 +86,180 @@
                 <td><%= data[0].userphone%></td>
               </tr>
             </tbody>
-          </table>    
-          <form method="GET" action="profile_driver">    
-            <button type="button" class="btn btn-primary" data-toggle="modal"
-              data-target="#editPersonalInfoModal">Edit</button>
+          </table>
+
+          <div class="form-row">
+            <div class="col-md-2.5">
+              <h4 class="card-title">Payment Information</h4>
+            </div>
+            <div class="col-md-6">
+              <button type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#addCardModal">Edit</button>
+            </div>
+          </div>
+          <table class="table">
+            <tbody>
+              <% if(data[0].cardnumber) { %>
+              <tr>
+                <td><strong>Card Number</strong></td>
+                <td><%= data[0].cardnumber%></td>
+                <td><Strong>Type</Strong></td>
+                <td><%= data[0].cardtype%></td>
+              </tr>
+              <% } else { %>
+              <tr>
+                <td colspan="8">No card information available, click on edit to add!</td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+
+          <div class="form-row">
+            <div class="col-md-2.5">
+              <h4 class="card-title">Preferences</h4>
+            </div>
+            <div class="col-md-6">
+              <button type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#addpreferenceModal">Add</button>
+              <button type="button" class="btn btn-primary" data-toggle="modal"
+                data-target="#deletepreferenceModal">Delete</button>
+            </div>
+          </div>
+          <table class="table">
+            <tbody>
+              <% if (data[0].prefpriority) {
+                for(var i=0; i<data.length; i++) { %>
+              <tr>
+                <td><%= data[i].prefpriority%></td>
+                <td><%= data[i].preference%></td>
+              </tr>
+              <% }
+               } else { %>
+              <tr>
+                <td colspan="8">No preference has been set, click on edit to add!</td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+
+          <form method="GET" action="profile_driver">
             <button type="submit" action="/profile_driver" class="btn btn-primary float-right">Switch to driver</button>
           </form>
         </div>
       </div>
       <strong>Not a driver?</strong>
       <button type="button" class="btn btn-primary float-right" data-toggle="modal"
-                  data-target="#applyAsDriverModal">Apply to be a driver</button>
+        data-target="#applyAsDriverModal">Apply to be a driver</button>
     </div>
   </div>
 
   <!-- pop up modal to edit personal info -->
   <div class="modal fade show" id="editPersonalInfoModal" tabindex="-1" role="dialog" style="display: none;"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
       <div class="modal-content">
-          <div class="modal-body text-center">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <i class="material-icons">clear</i>
-              </button>
-              <form method="POST" action="profile_passenger">
-                  <div class="modal-title"><strong>Enter your new phone number</strong></div>
-                  <input type="tel" id="phone" name="phone" minlength="8" maxlength="8" class="form-control"
-                      placeholder="Phone Number...">
-                  <button type="submit" class="btn btn-primary btn-round">Edit</button>
-              </form>
-          </div>
+        <div class="modal-body text-center">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="material-icons">clear</i>
+          </button>
+          <form method="POST" action="profile_passenger">
+            <div class="modal-title"><strong>Enter your new phone number</strong></div>
+            <input type="tel" id="phone" name="phone" minlength="8" maxlength="8" class="form-control"
+              placeholder="Phone Number...">
+            <button type="submit" class="btn btn-primary btn-round">Edit</button>
+          </form>
+        </div>
       </div>
+    </div>
   </div>
-</div>
+  <!--pop up modal to add payment card details-->
+  <div class="modal fade show" id="addCardModal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="material-icons">clear</i>
+          </button>
+          <form method="POST" action="add_paymentcard">
+            <div class="modal-title"><strong>Enter the details of your card</strong>
+            </div>
+            <p class="text-primary text-center">(please fill in all the fields)</p>
+            <div class="form-group">
+              <label for="platenumber">Card Number</label>
+              <input type="text" id="cardnumber" name="cardnumber" minlength="16" maxlength="16" class="form-control">
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="cardtype">Card type</label>
+                <input type="text" id="cardtype" name="cardtype" class="form-control">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="cardcvi" id="carcolor">Card CVI</label>
+                <input type="number" minlength="3" maxlenght="3" class="form-control" name="cardcvi" id="cardcvi">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-round">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal for adding preference -->
+  <div class="modal fade show" id="addpreferenceModal" tabindex="-1" role="dialog" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="material-icons">clear</i>
+          </button>
+          <form method="POST" action="add_preference">
+            <div class="modal-title"><strong>Choose a preference and add a priority</strong></div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="number" id="priority" name="priority" class="form-control">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputState"></label>
+                <select id="inputState" name="preferences" class="form-control">
+                  <option selected>Choose...</option>
+                  <option>Prefer Female Driver</option>
+                  <option>Prefer Male Driver</option>
+                  <option>No Smoking</option>
+                  <option>Pet friendly</option>
+                  <option>Child friendly</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-round">Edit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
- <!--pop up modal to edit car details-->
- <div class="modal fade show" id="applyAsDriverModal" tabindex="-1" role="dialog" style="display: none;"
- aria-hidden="true">
- <div class="modal-dialog" role="document">
-     <div class="modal-content">
-         <div class="modal-body text-center">
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                 <i class="material-icons">clear</i>
-             </button>
-             <form method="POST" action="convert_driver">
-                 <div class="modal-title"><strong>Enter the platenumber of your car</strong>
-                 </div>
-                 <p class="text-primary text-center">(please fill in all the fields)</p>
-                 <div class="form-group">
-                     <label for="platenumber">Plate Number</label>
-                     <input type="text" id="platenumber" name="platenumber" minlength="8" maxlength="8"
-                         class="form-control">
-                 </div>
-                 <div class="form-row">
-                     <div class="form-group col-md-6">
-                         <label for="carbrand">Car Brand</label>
-                         <input type="text" id="carbrand" name="carbrand" class="form-control">
-                     </div>
-                     <div class="form-group col-md-6">
-                         <label for="carmodel">Car Model</label>
-                         <input type="text" id="carmodel" name="carmodel" class="form-control">
-                     </div>
-                 </div>
-                 <div class="form-row">
-                     <div class="form-group col-md-6">
-                         <label for="carcolor" id="carcolor">Car
-                             Color</label>
-                         <input type="text" class="form-control" name="carcolor" id="color">
-                     </div>
-                     <div class="form-group col-md-3">
-                         <label for="cartype" class="bmd-label-floating text-center">Type</label>
-                         <select id="cartype" name="cartype" class="form-control">
-                             <option selected>Choose...</option>
-                             <option>5-seater</option>
-                             <option>7-seater</option>
-                         </select>
-                     </div>
-                 </div>
-                 <button type="submit" class="btn btn-primary btn-round">Apply</button>
-             </form>
-         </div>
-     </div>
- </div>
-</div>
+  <!-- modal for deleting preference -->
+  <div class="modal fade show" id="deletepreferenceModal" tabindex="-1" role="dialog" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="material-icons">clear</i>
+          </button>
+          <form method="POST" action="delete_preference">
+            <div class="modal-title"><strong>Specify the priority of preference</strong></div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="number" id="priority" name="priority" class="form-control">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-round">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!--   Core JS Files   -->
   <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>

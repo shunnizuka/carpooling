@@ -32,22 +32,25 @@ router.get('/', function (req, res, next) {
     }
 });
 
-router.post('/', function (req, res, next) {
-
+router.post('/', function(req, res, next) {
     username = req.session.username;
-    phone = req.body.phone;
+    var priority = req.body.priority;
+    
+    console.log(priority);
 
-    //Query
-    var edit_user_info = 'UPDATE users SET userphone =' + "('" + phone + "') where username= '" + username + "';";
+    if (priority != undefined) {
+        var delete_query_pref = 'DELETE FROM Preferences WHERE userName = ' + "'" + username + "'" + ' AND prefPriority = ' + priority + ";";
+        console.log(delete_query_pref);
 
-    pool.query(edit_user_info, (err, data) => {
-        if (err) {
-            console.log('error');
-            res.redirect('/profile_passenger');
-        } else {
-            res.redirect('/profile_passenger');
-        }
-    });
-})
+        pool.query(delete_query_pref, (err, data) => {
+            if (err) {
+                console.log('error');
+                res.redirect('/profile_passenger');
+            } else {
+                res.redirect('/profile_passenger');
+            }
+        });
+    }
+});
 
 module.exports = router;
