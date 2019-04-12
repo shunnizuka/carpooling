@@ -35,7 +35,11 @@ var admin_allRideRouter = require('./routes/admin_allRides');
 var admin_allUserRouter = require('./routes/admin_allUsers');
 var admin_allBidRouter = require('./routes/admin_allBids');
 
+var admin_createRideRouter = require('./routes/admin_create_ride');
+var admin_updateRideRouter = require('./routes/admin_update_ride');
 var admin_createBidRouter = require('./routes/admin_create_bid');
+var admin_updateBidRouter = require('./routes/admin_update_bid');
+
 /* ---------------------------- */
 
 /* --- FROM TEMPLATE --- */
@@ -103,7 +107,10 @@ app.use('/admin_allRides', admin_allRideRouter);
 app.use('/admin_allUsers', admin_allUserRouter);
 app.use('/admin_allBids', admin_allBidRouter);
 
+app.use('/admin_create_ride', admin_createRideRouter);
+app.use('/admin_update_ride', admin_updateRideRouter);
 app.use('/admin_create_bid', admin_createBidRouter);
+app.use('/admin_update_bid', admin_updateBidRouter);
 /* ---------------------------- */
 
 // catch 404 and forward to error handler
