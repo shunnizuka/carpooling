@@ -27,7 +27,6 @@ router.get('/', function (req, res, next) {
 		pool.query(all_rides_query, (err, data) => {
       console.log(all_rides_query);
       res.render('filter_rides', { title: 'All Rides', data: data.rows });
-      console.log(data);
     });
 	} else {
 		res.redirect('/login');

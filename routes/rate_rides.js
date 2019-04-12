@@ -27,7 +27,7 @@ router.get('/', function (req, res, next) {
 
 		pool.query(done_rides_query, (err, data) => {
             console.log(done_rides_query);
-            res.render('filter_rides', { title: 'Completed Rides', data: data.rows });
+            res.render('rate_rides', { title: 'Completed Rides', data: data.rows });
             console.log(data);
         });
 	} else {
@@ -39,7 +39,7 @@ router.get('/', function (req, res, next) {
 router.post('/', function(req, res, next) {
 	var rideid = req.body.rideid;
     var platenumber = req.body.platenumber;
-    var score = req.session.score;
+    var score = req.body.score;
 	console.log(rideid, platenumber, score);
   
     var retrieve_driverName_query = 'SELECT V.driverUserName FROM Vehicles V, Rides R WHERE R.rideId = ' + rideid + 
@@ -50,10 +50,11 @@ router.post('/', function(req, res, next) {
         pool.connect((err, client, release) => {
 
             //Query to get plate number
+            console.log(retrieve_driverName_query);
             client.query(retrieve_driverName_query, (err, result) => {
                 release();
 
-                var drivername = result.rows[0].driverUserName;
+                var drivername = result.rows[0].driverusername;
                 console.log(drivername);
                 
                 // Query to insert
@@ -61,7 +62,7 @@ router.post('/', function(req, res, next) {
                 + "('" + rideid + "','" + drivername + "','" + score + "');";
 
                 console.log(insert_query_ratings);
-                client.query(insert_query_rides, (err, result) => {
+                client.query(insert_query_ratings, (err, result) => {
                     if (err) {
                         console.log('error');
                         res.redirect('/rate_rides');
