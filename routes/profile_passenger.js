@@ -29,4 +29,22 @@ router.get('/', function (req, res, next) {
     }
 });
 
+router.post('/', function (req, res, next) {
+
+    username = req.session.username;
+    phone = req.body.phone;
+
+    //Query
+    var edit_user_info = 'UPDATE users SET userphone =' + "('" + phone + "') where username= '" + username + "';";
+
+    pool.query(edit_user_info, (err, data) => {
+        if (err) {
+            console.log('error');
+            res.redirect('/profile_passenger');
+        } else {
+            res.redirect('/profile_passenger');
+        }
+    });
+})
+
 module.exports = router;
