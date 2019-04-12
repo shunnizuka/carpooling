@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
     //add this to the pages that need to be logged in to access
 	username = req.session.username;
 	if (username != undefined) {
-        var own_bids_query = 'SELECT * FROM Bids WHERE bidderName = ' + "'" + req.session.username + "';";
+        var own_bids_query = 'SELECT * FROM Bids B JOIN Rides R ON B.rideId = R.rideId WHERE bidderName = ' + "'" + req.session.username + "';";
 	    pool.query(own_bids_query, (err, result) => {
         console.log(own_bids_query);
         res.render('update_bids', { title: 'Pending Rides', result: result.rows });

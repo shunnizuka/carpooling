@@ -56,6 +56,7 @@ router.post('/', function(req, res, next) {
 			res.redirect('/login');
 		} catch (e) {
 			await client.query('ROLLBACK')
+			res.redirect('/signup_driver');
 			throw e
 		} finally {
 			client.release()

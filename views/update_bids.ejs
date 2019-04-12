@@ -91,7 +91,10 @@
             <tr>
                 <th scope="col">Name of Bidder</th>
                 <th scope="col">Ride ID</th>
-                <th scope="col">Price</th>
+                <th scope="col">Origin</th>
+                <th scope="col">Destination</th>
+                <th scope="col">New Bid</th>
+                <th scope="col">Max Bid</th>
             </tr>
         </thead>
         <tbody>
@@ -99,7 +102,10 @@
             <tr>
                 <td><%= result[i].biddername%></td>
                 <td><%= result[i].rideid%></td>
+                <td><%= result[i].rideorigin%></td>
+                <td><%= result[i].ridedestination%></td>
                 <td><%= result[i].price%></td>
+                <td><%= result[i].ridecurrentprice%></td>
             </tr>
             <% } %>
         </tbody>
