@@ -74,14 +74,15 @@ create table Bids(
 
 create table Preferences(
 	userName varchar(20) not null,
-	preferenceId varchar(20),
+	preferenceId integer not null,
+	preference varchar(20) not null,
 	primary key(preferenceId, userName),
 	foreign key(userName) references Passengers(userName) on delete cascade
 );
 
 create table PaymentMethod(
 	userName varchar(20) not null,
-	cardNumber integer not null,
+	cardNumber varchar(16) not null,
 	cardType varchar(20) not null,
 	cardCVI integer not null,
 	primary key(cardNumber),
@@ -135,6 +136,17 @@ VALUES ('Rohan', 1, 20.0),
 ('Shune', 4, 10.0),
 ('Bava', 4, 27.0),
 ('Beatrice', 4, 16.0);
+
+INSERT INTO Preferences (userName, preferenceId, preference) 
+VALUES ('Rohan', 1, 'No smoking'),
+('Beatrice', 1, 'Pet Friendly'),
+('Bava' , 1, 'Prefer Female Driver'),
+('Bava', 2, 'Pet Friendly');
+
+INSERT INTO PaymentMethod (username, cardNumber, cardType, cardCVI)
+VALUES ('Rohan', '2849402123774892', 'Visa', '990'),
+('Beatrice', '2794203488631352', 'MasterCard', '676'),
+('Bava', '8935261784392071', 'Visa', '902');
 
 CREATE OR REPLACE FUNCTION check_bid()
 RETURNS TRIGGER AS
