@@ -35,7 +35,7 @@ router.post('/', function (req, res, next) {
 	var price = req.body.price;
 
    // Construct specific SQL Query
-   var insert_query_bids = 'INSERT INTO bids VALUES' + "('" + biddername + "','" + rideid + "','" + price + "')";
+   var insert_query_bids = 'INSERT INTO bids VALUES' + "('" + biddername + "','" + rideid + "','" + price + "');";
    console.log(insert_query_bids);
 
    pool.query(insert_query_bids, (err, data) => {
