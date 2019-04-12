@@ -24,7 +24,7 @@ create table Passengers(
 
 create table Drivers(
 	userName varchar(20) not null,
-	rating integer,
+	rating integer default 0,
 	primary key(userName),
 	foreign key(userName) references Users(userName)
 );
@@ -83,10 +83,10 @@ create table Preferences(
 
 create table PaymentMethod(
 	userName varchar(20) not null,
-	cardNumber varchar(16),
-	cardType varchar(20),
-	cardCVI integer,
-	primary key(cardNumber, username),
+	cardNumber varchar(16) not null,
+	cardType varchar(20) not null,
+	cardCVI integer not null,
+	primary key(cardNumber),
 	foreign key(userName) references Passengers(userName)
 );
 
@@ -101,10 +101,10 @@ VALUES ('Beatrice', 93234567, 'password' ),
 ('Beesaycheese', 96853219, 'password');
 
 INSERT INTO Drivers(userName, rating)
-VALUES ('Rohan', 5),
-('Shune', 4),
-('Bava', 3),
-('Beatrice', 5);
+VALUES ('Rohan', 5.0),
+('Shune', 4.0),
+('Bava', 3.0),
+('Beatrice', 5.0);
 
 INSERT INTO Passengers(userName)
 VALUES ('Rohan'),
@@ -151,40 +151,35 @@ VALUES ('Rohan', '2849402123774892', 'Visa', '990'),
 ('Bava', '8935261784392071', 'Visa', '902');
 
 CREATE OR REPLACE FUNCTION check_bid()
+/* to prevent bidding for own rides and update max bid */
+CREATE OR REPLACE FUNCTION check_driver_ownBid()
 RETURNS TRIGGER AS
 $$
-DECLARE maxBid FLOAT;
+DECLARE rideDriver VARCHAR(20);
+		maxBid FLOAT;
 BEGIN
+	SELECT D.userName INTO rideDriver
+	FROM Rides R, Vehicles V, Drivers D
+	WHERE R.rideId = NEW.rideId AND R.ridePlateNumber = V.plateNumber AND V.driverUserName = D.userName;
+
 	SELECT R.rideCurrentPrice INTO maxBid
 	FROM Rides R
 	WHERE R.rideId = NEW.rideId;
-	IF NEW.price <= maxBid THEN RETURN NULL;
-		ELSE 
-		PERFORM update_rides_maxPrice(NEW.rideId, NEW.price);
+
+	IF NEW.bidderName = rideDriver OR NEW.price <= maxBid THEN RETURN NULL;
+		ELSE UPDATE Rides SET rideCurrentPrice = NEW.price WHERE rideId = NEW.rideId;
 		RETURN NEW;
 	END IF;
 END;
 $$
 LANGUAGE plpgsql;
 
-CREATE TRIGGER check_bid
+CREATE TRIGGER check_driver_ownBid
 BEFORE INSERT OR UPDATE ON Bids
 FOR EACH ROW
-EXECUTE PROCEDURE check_bid();
+EXECUTE PROCEDURE check_driver_ownBid();
 
-CREATE OR REPLACE FUNCTION update_rides_maxPrice
-(r_id INTEGER, price FLOAT)
-RETURNS void
-AS
-$$
-BEGIN
-	UPDATE Rides
-	SET rideCurrentPrice = price
-	WHERE r_id = rideId;
-END
-$$
-LANGUAGE plpgsql;
-
+/* cannot add a ride from the past */
 CREATE OR REPLACE FUNCTION update_rides_dateAndTime()
 RETURNS TRIGGER AS
 $$
@@ -226,26 +221,8 @@ BEFORE INSERT OR UPDATE ON Bids
 FOR EACH ROW
 EXECUTE PROCEDURE update_rides_checkTime();
 */
-CREATE OR REPLACE FUNCTION check_driver_ownBid()
-RETURNS TRIGGER AS
-$$
-DECLARE rideDriver VARCHAR(20);
-BEGIN
-	SELECT D.userName INTO rideDriver
-	FROM Rides R, Vehicles V, Drivers D
-	WHERE R.rideId = NEW.rideId AND R.ridePlateNumber = V.plateNumber AND V.driverUserName = D.userName;
-	IF NEW.bidderName = rideDriver THEN RETURN NULL;
-		ELSE RETURN NEW;
-	END IF;
-END;
-$$
-LANGUAGE plpgsql;
 
-CREATE TRIGGER check_driver_ownBid
-BEFORE INSERT OR UPDATE ON Bids
-FOR EACH ROW
-EXECUTE PROCEDURE check_driver_ownBid();
-
+/* check second max bid on bids */
 CREATE OR REPLACE FUNCTION check_maxbid_onDelete()
 RETURNS TRIGGER AS
 $$
@@ -274,23 +251,45 @@ AFTER DELETE ON Bids
 FOR EACH ROW
 EXECUTE PROCEDURE check_maxbid_onDelete();
 
-CREATE OR REPLACE FUNCTION delete_vehicle_check()
+CREATE OR REPLACE FUNCTION edit_card_replace()
 RETURNS TRIGGER AS
 $$
 BEGIN
 	IF 
-	(SELECT COUNT(*) 
-	FROM Vehicles 
-	GROUP BY driverUserName
-	HAVING OLD.driverUserName = driverUserName) = 1
-	THEN RETURN NULL;
+	(SELECT COUNT(*)
+	FROM PaymentMethod
+	GROUP BY userName
+	HAVING NEW.userName = userName) = 1
+	THEN UPDATE PaymentMethod SET userName = NEW.userName, cardNumber = NEW.cardNumber, cardType = NEW.cardType, cardCVI = NEW.cardCVI
+	WHERE userName = OLD.userName; RAISE NOTICE 'HELLO'; RETURN NULL;
 	ELSE RETURN NEW;
 	END IF;
 END;
 $$
 LANGUAGE plpgsql;
 
-CREATE TRIGGER delete_vehicle_check
-BEFORE DELETE ON Vehicles
+
+CREATE TRIGGER edit_card_replace
+BEFORE INSERT OR UPDATE ON PaymentMethod
 FOR EACH ROW
-EXECUTE PROCEDURE delete_vehicle_check();
+EXECUTE PROCEDURE edit_card_replace();
+
+CREATE OR REPLACE FUNCTION rate_upon_insert()
+RETURNS TRIGGER AS
+$$
+DECLARE avgDriverRating INTEGER;
+BEGIN
+	SELECT avg(score) INTO avgDriverRating
+	FROM Ratings R
+	GROUP BY R.userName
+	HAVING R.userName = NEW.userName;
+	UPDATE Drivers SET rating = avgDriverRating WHERE userName = NEW.userName;
+	RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER rate_upon_insert
+AFTER INSERT ON Ratings
+FOR EACH ROW
+EXECUTE PROCEDURE rate_upon_insert();

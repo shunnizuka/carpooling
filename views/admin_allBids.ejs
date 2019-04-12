@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Driver's Rides</title>
+  <title>All Bids</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
@@ -21,7 +21,7 @@
   <nav class="navbar fixed-top navbar-expand-lg bg-danger" color-on-scroll="100">
     <div class="container">
       <div class="navbar-translate">
-        <a class="navbar-brand" href="#">App Name </a>
+        <a class="navbar-brand" href="#">GrabCab </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
           aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
@@ -32,26 +32,15 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/create_rides">Createride </a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="#">MyRides <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/profile_driver">Profile</a>
-          </li>
-          <li class="nav-item dropdown">
-              <form class="form-inline ml-auto" method="POST">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
-                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Setting
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <button type="submit" class="dropdown-item" formaction="/logout">Logout</button>
-                  </div>
-              </form>
-          </li>
+                <li class="nav-item active">
+            			<a class="nav-link" href="/admin_allRides">AllRides </a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">AllBids<span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/admin_allUsers">AllUsers </a>
+					</li>
         </ul>
 
       </div>
@@ -63,59 +52,58 @@
     <div class="container">
       <div class="card card-nav-tabs">
         <div class="card-header card-header-danger">
-          <strong>CHOOSE RIDE TO EDIT OR DELETE</strong>
+          <strong>CREATE BID</strong>
         </div>
         <div class="card-body">
-          <form id="update-ride-form" method="POST" action="myRides_drivers">
-            <div class="form text-center">
-              <div class="form-group">
-                <label for="rideid">Ride ID</label>
-                <input type="text" class="form-control" id="rideid" name="rideid"
-                  placeholder="Enter the ID of the ride you want to edit or delete">
-              </div>
-            </div>
+          <form id="update-bid-form" method="POST" action="admin_create_bid">
+            <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" id="rideid" name="rideid"
+                        placeholder="Enter ride ID of the bid">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" id="username" name="username"
+                        placeholder="Enter biddername">
+                    </div>
+                    <div class="form-group col-md-6">
+                            <input type="text" class="form-control" id="price" name="price"
+                            placeholder="Enter bid">
+                        </div>
+                </div>
             <div class="text-center">
-              <a href="" class="btn btn-primary delete" data-toggle="modal" data-target="#modalLoginForm">Edit</a>
-              <button class="btn btn-primary delete" formaction="/myRides_drivers" type="submit">Delete</button>
+                    <button type="submit" class="btn btn-primary">Create New Bid</button>
             </div>
           </form>
         </div>
       </div>
     </div>
   </div>
-  <h1>My Rides</h1>
+  <h1>All Bids</h1>
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Date</th>
-        <th scope="col">Time</th>
-        <th scope="col">Destination</th>
-        <th scope="col">Origin</th>
-        <th scope="col">Plate Number</th>
-        <th scope="col">Original Price</th>
-        <th scope="col">Max Bid</th>
-        <th scope="col">Completed</th>
+        <th scope="col">Ride Id</th>
+        <th scope="col">Bidder</th>
+        <th scope="col">Bids</th>
+        <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody>
       <% if (data.length) {
       for(var i=0; i<data.length; i++) { %>
       <tr>
-        <td><%= data[i].rideid%></td>
-        <td><%= data[i].ridedate%></td>
-        <td><%= data[i].ridetime%></td>
-        <td><%= data[i].ridedestination%></td>
-        <td><%= data[i].rideorigin%></td>
-        <td><%= data[i].rideplatenumber%></td>
-        <td><%= data[i].ridecurrentprice%></td>
-        <td><%= data[i].rideadvprice%></td>
-        <td><%= data[i].completed%></td>
+        <td name="rideid"><%= data[i].rideid%></td>
+        <td><%= data[i].biddername%></td>
+        <td><%= data[i].price%></td>
+        <td>
+                <a href="" class="btn btn-primary delete" data-toggle="modal" data-target="#editBidModal">Edit</a>
+                <a href="" class="btn btn-danger delete" data-toggle="modal" data-target="#deleteBidModal">Delete</a>
+        </td>
       </tr>
       <% } 
     } else { %>
       <tr>
-        <td colspan="8">No Rides</td>
+        <td colspan="4">No Rides</td>
       </tr>
       <% } %>
 
@@ -123,27 +111,54 @@
   </table>
 
   <!-- edit modal-->
-  <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  <div class="modal fade" id="editBidModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header text-center">
-          <h4 class="modal-title w-100 font-weight-bold">Edit Ride</h4>
+          <h4 class="modal-title w-100 font-weight-bold">Edit Bid</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body mx-3">
-          <form class="md-form mb-5" method="POST" action="update_rides">
+          <form class="md-form mb-5" method="POST" action="update_bids">
             <i class="fas fa-envelope prefix grey-text"></i>
             <input type="number" id="rideid" name="rideid" class="form-control validate">
             <label data-error="wrong" data-success="right" for="defaultForm-email">Re-enter Ride ID</label>
-            <input type="date" id="newdate" name="newdate" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="defaultForm-email">New Date</label>
-            <input type="time" id="newtime" name="newtime" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="defaultForm-email">New Time</label>
+            <input type="text" id="newbiddername" name="newbiddername" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="defaultForm-email">New Bidder</label>
+            <input type="number" id="newprice" name="newprice" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="defaultForm-email">New Price</label>
             <div class="modal-footer d-flex justify-content-center">
-              <button type="submit" formaction="/update_rides" class="btn btn-default">Submit Adjusted Ride</button>
+              <button type="submit" class="btn btn-primary">Submit Adjusted Bid</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- delete modal-->
+  <div class="modal fade" id="deleteBidModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">Delete Bid</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body mx-3">
+          <form class="md-form mb-5" method="POST" action="admin_allBids">
+            <i class="fas fa-envelope prefix grey-text"></i>
+            <input type="number" id="rideid" name="rideid" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="defaultForm-email">Ride ID</label>
+            <input type="text" id="biddername" name="biddername" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="defaultForm-email">Bidder</label>
+            <div class="modal-footer d-flex justify-content-center">
+              <button type="submit" class="btn btn-danger">Delete</button>
             </div>
           </form>
         </div>
