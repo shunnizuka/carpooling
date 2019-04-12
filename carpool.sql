@@ -158,19 +158,6 @@ BEFORE INSERT OR UPDATE ON Bids
 FOR EACH ROW
 EXECUTE PROCEDURE check_bid();
 
-/*CREATE OR REPLACE FUNCTION update_rides_maxPrice
-(r_id INTEGER, price FLOAT)
-RETURNS void
-AS
-$$
-BEGIN
-	UPDATE Rides
-	SET rideCurrentPrice = price
-	WHERE r_id = rideId;
-END
-$$
-LANGUAGE plpgsql;*/
-
 CREATE OR REPLACE FUNCTION update_rides_dateAndTime()
 RETURNS TRIGGER AS
 $$
@@ -259,5 +246,3 @@ CREATE TRIGGER check_maxbid_onDelete
 AFTER DELETE ON Bids
 FOR EACH ROW
 EXECUTE PROCEDURE check_maxbid_onDelete();
-
-

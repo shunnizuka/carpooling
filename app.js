@@ -30,6 +30,7 @@ var logoutRouter = require('./routes/logout');
 var update_bidsRouter = require('./routes/update_bids');
 var edit_bidsRouter = require('./routes/edit_bids');
 var convert_driverRouter = require('./routes/convert_driver');
+var rate_ridesRouter = require('./routes/rate_rides');
 
 /* ---------------------------- */
 
@@ -93,6 +94,7 @@ app.use('/logout', logoutRouter);
 app.use('/update_bids', update_bidsRouter);
 app.use('/edit_bids', edit_bidsRouter);
 app.use('/convert_driver', convert_driverRouter);
+app.use('/rate_rides', rate_ridesRouter);
 
 /* ---------------------------- */
 

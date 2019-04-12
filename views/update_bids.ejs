@@ -33,16 +33,16 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">FindRide</a>
+                        <a class="nav-link" href="/filter_rides">FindRide</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">PendingRides<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/update_bids">Pending<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">CompletedRides</a>
+                        <a class="nav-link" href="/rate_rides">Completed</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Profile</a>
+                        <a class="nav-link" href="/profile_passenger">Profile</a>
                     </li>
                 </ul>
             </div>
@@ -64,14 +64,10 @@
                             </div>
                         </div>
                         <div class="text-center">
-                                <tbody>
-                                    <tr>    
-                                            <td>
-                                                <a href="" class="btn btn-primary delete" data-toggle="modal" data-target="#modalLoginForm">Edit</a>
-                                                <a class="btn btn-danger delete" onclick="return alert('Are You sure?')" href="/bids">Delete</a>
-                                            </td>
-                                    </tr> 
-                                    </tbody>
+                            <button type="button" class="btn btn-primary delete" data-toggle="modal"
+                                data-target="#modalLoginForm">Edit</button>
+                            <button class="btn btn-primary delete" formaction="/update_bids"
+                                type="submit">Delete</button>
                         </div>
                     </form>
                 </div>
@@ -97,32 +93,35 @@
             </tbody>
         </table>
 
-        <!-- edit modal-->>
-    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Edit Bid</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body mx-3">
-                <form class="md-form mb-5" method="POST" action="bids">
-                    <i class="fas fa-envelope prefix grey-text"></i>
-                    <input type="number" id="id" name="rideid" class="form-control validate">
-                    <label data-error="wrong" data-success="right" for="defaultForm-email">Re-enter Ride ID</label>
-                    <input type="number" id="newprice" name = "newprice" class="form-control validate">
-                    <label data-error="wrong" data-success="right" for="defaultForm-email">New Bid Price</label>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button type="submit" class="btn btn-default">Submit New Bid</button>
+        <!-- edit modal-->
+        <div class="modal fade show" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Edit Bid</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </form>
+                    <div class="modal-body mx-3">
+                        <form class="md-form mb-5" method="POST" action="edit_bids">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <input type="number" id="rideid" name="rideid" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="defaultForm-email">Re-enter Ride
+                                ID</label>
+                            <input type="number" step="0.01" id="newprice" name="newprice"
+                                class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="defaultForm-email">New Price</label>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button type="submit" formaction="/edit_bids" class="btn btn-default">Submit Adjusted
+                                    Ride</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
     </div>
 </body>
 
