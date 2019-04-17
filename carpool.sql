@@ -333,3 +333,24 @@ CREATE TRIGGER rate_upon_insert
 AFTER INSERT ON Ratings
 FOR EACH ROW
 EXECUTE PROCEDURE rate_upon_insert();
+
+CREATE OR REPLACE FUNCTION delete_vehicle_check()
+RETURNS TRIGGER AS
+$$
+BEGIN
+    IF
+    (SELECT COUNT(*)
+    FROM Vehicles
+    GROUP BY driverUserName
+    HAVING OLD.driverUserName = driverUserName) = 1
+    THEN RETURN NULL;
+    ELSE RETURN NEW;
+    END IF;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER delete_vehicle_check
+BEFORE DELETE ON Vehicles
+FOR EACH ROW
+EXECUTE PROCEDURE delete_vehicle_check();
