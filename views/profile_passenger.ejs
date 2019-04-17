@@ -134,7 +134,7 @@
                 <td><%= data[i].preference%></td>
               </tr>
               <% }
-               } else { %>
+               } else if (!data[0].prefpriority) { %>
               <tr>
                 <td colspan="8">No preference has been set, click on edit to add!</td>
               </tr>

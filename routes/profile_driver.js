@@ -21,6 +21,7 @@ router.get('/', function (req, res, next) {
         //Query
         retrieve_user_phone = 'SELECT * FROM (users natural join drivers) inner join vehicles on users.username = vehicles.driverUserName WHERE username='
             + "'" + username + "';";
+            console.log(retrieve_user_phone);
         pool.query(retrieve_user_phone, (err, data) => {
             res.render('profile_driver', { title: 'Carpooling', data: data.rows });
         })
