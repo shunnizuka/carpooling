@@ -122,10 +122,21 @@ INSERT INTO Rides (rideDate, rideTime, rideDestination, rideOrigin, rideCurrentP
 VALUES ('11/11/2019', current_time, 'Jalan Bukit Merah', 'NUS', 25, 25, '44332211'),
 ('11/12/2019', current_time, 'NUS', 'Jalan Bukit Merah', 25, 10, '87654321'),
 ('28/02/2020', current_time, 'Sembawang', 'Punggol', 15, 5, '11223344'),
-('30/03/2020', current_time, 'Punggol', 'NUS', 35, 20, '12345678');
+('30/03/2020', current_time, 'Punggol', 'NUS', 35, 20, '12345678'),
+('20/04/2019', '10:23:54', 'Jalan Bukit Merah', 'NUS', 10, 10, '44332211'),
+('20/04/2019', '12:00:00', 'Jalan Bukit Merah', 'NUS', 20, 20, '44332211'),
+('21/04/2019', '10:00:00', 'Jalan Bukit Merah', 'NUS', 20, 20, '44332211'),
+('20/04/2020', '12:00:00', 'Sembawang', 'Jewel Changi', 40, 40, '11223344'),
+('21/04/2020', '13:00:00', 'Redhill', 'Tampines', 40, 40, '11223344'),
+('21/04/2020', '13:00:00', 'Redhill', 'Tampines', 40, 40, '12345678'),
+('20/04/2019', '12:00:00', 'Jalan Bukit Merah', 'NUS', 15, 15, '12345678'),
+('20/04/2019', '14:00:00', 'NUS', 'Jalan Bukit Merah', 15, 15, '12345678'),
+('20/04/2020', '12:00:00', 'Bugis', 'Orchard', 20, 20, '11223344'),
+('18/04/2019', '02:00:00', 'Clarke Quay', 'Yio Chu Kang', 50, 50, '11223344'),
+('18/04/2019', '05:00:00', 'Orchard', 'Tampines', 50, 50, '11223344');
 
 INSERT INTO Bids (bidderName, rideId, price)
-VALUES ('Rohan', 1, 20.0),
+VALUES ('Rohan', 1, 25.0),
 ('Bava', 1, 15.0),
 ('Shune', 1, 23.0),
 ('Rohan', 2, 17.0),
@@ -136,7 +147,9 @@ VALUES ('Rohan', 1, 20.0),
 ('Beatrice', 3, 18.0),
 ('Shune', 4, 10.0),
 ('Bava', 4, 27.0),
-('Beatrice', 4, 16.0);
+('Beatrice', 4, 16.0),
+('Bava' , 15, 50),
+('Bava', 14, 50);
 
 INSERT INTO Preferences (userName, prefPriority, preference) 
 VALUES ('Rohan', 1, 'No smoking'),
