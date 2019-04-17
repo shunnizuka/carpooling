@@ -21,7 +21,7 @@
   <nav class="navbar fixed-top navbar-expand-lg bg-danger" color-on-scroll="100">
     <div class="container">
       <div class="navbar-translate">
-        <a class="navbar-brand" href="/navbar"><strong>GrabCab</strong></a>
+        <a class="navbar-brand" href="#"><strong>GrabCab</strong></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
           aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
@@ -127,7 +127,7 @@
           </div>
           <table class="table">
             <tbody>
-              <% if (data[0].prefpriority) {
+              <% if (data[0].prefpriority >= 0) {
                 for(var i=0; i<data.length; i++) { %>
               <tr>
                 <td><%= data[i].prefpriority%></td>
@@ -217,7 +217,7 @@
             <div class="modal-title"><strong>Choose a preference and add a priority</strong></div>
             <div class="form-row">
               <div class="form-group col-md-6">
-                <input type="number" id="priority" name="priority" class="form-control">
+                <input type="number" id="priority" name="priority" min=0 class="form-control">
               </div>
               <div class="form-group col-md-6">
                 <label for="inputState"></label>
@@ -231,7 +231,7 @@
                 </select>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-round">Edit</button>
+            <button type="submit" class="btn btn-primary btn-round">Add</button>
           </form>
         </div>
       </div>
